@@ -61,7 +61,18 @@ the site went through 10 focused versions:
 | v7 | `a930496` | Splash screen now shows the full `logo.jpg` (not just the mark); favicon SVG redrawn to read 'as' in white + gradient |
 | v8 | `edf48a1` | Footer **Brand kit** — downloadable logo files, 4-swatch palette, 3-font typography card |
 | v9 | `4eebba7` | `lang="en-IN"`, canonical URLs, apple-touch-icon, slide-in skip-to-content link, `prefers-reduced-motion` disables splash/marquee/cursor animations |
-| v10 | (this commit) | Skip-link + `<main id="main">` consistent on every page; this README refresh; final cross-page verification |
+| v10 | `34bef34` | Skip-link + `<main id="main">` consistent on every page; first README refresh |
+| — | `0bd1eed` | Native cursor restored; firm renamed `studio arqs` → **`studio arq`**; real `logo.jpg` wired into header |
+| v11 | `f3943c5` | Founder portrait — `assets/img/brand/azeem.jpg` replaces 'AA' placeholder on founder.html + homepage |
+| v12 | `b8d2b5f` | Responsive portrait variants (400 / 800 / 1200) + face-crop variants (96 / 200 sq) + srcset everywhere |
+| v13 | `cacd244` | **'Led by Abdul Azeem'** face chip in the hero, next to 'Recently shipped' + 'Award-winning' |
+| v14 | `7d33cf3` | New `.portrait-card` component on about.html (200px photo + bio + CTAs) |
+| v15 | `92a3df2` | Same component on contact.html — **'Your first reply is from this person'** above the form |
+| v16 | `522566b` | New `.voice-card` on founder.html — portrait + giant italic pull-quote |
+| v17 | `99e6313` | `.reply-strip` above the homepage contact details — 60px avatar + 'replies in 48h' microcopy |
+| v18 | `db6938a` | Header logo polish — 44px height, drop-shadow, hover lift |
+| v19 | `65d10fc` | Brand-kit footer adds portrait downloads (full / 800 / face avatar) |
+| v20 | (this commit) | README refreshed with v11-v20 changelog, final cross-page verification |
 
 ## Verified founder facts (used throughout the site)
 
@@ -113,6 +124,25 @@ All copy on the site is sourced from the LinkedIn profile of
 
 The gallery, related-projects, **Lead architect**, and **Tools** rows
 all auto-populate from `gallery-data.js` defaults.
+
+## Founder portrait
+
+- Source: `assets/img/brand/azeem.jpg` (original, ~1.4 MB)
+- Generated variants for performance:
+  - `azeem-1200.jpg` · 1200w · ~310 KB · desktop founder hero
+  - `azeem-800.jpg` · 800w · ~96 KB · homepage portrait
+  - `azeem-400.jpg` · 400w · ~15 KB · mobile / portrait card
+  - `azeem-face-200.jpg` · 200x200 sq · ~6 KB · chip / avatar
+  - `azeem-face-96.jpg` · 96x96 sq · ~2 KB · favicon-size chip
+
+Used in:
+- Founder portrait card on `founder.html` (full 1200w with srcset)
+- Homepage 'Meet the founder' section
+- 'Led by Abdul Azeem' chip in the hero (face crop)
+- About + Contact portrait cards
+- Quote 'voice card' on the founder page
+- 'Replies in 48h' avatar strip above the contact form
+- Brand kit downloads (footer)
 
 ## Brand palette (from the logo)
 
