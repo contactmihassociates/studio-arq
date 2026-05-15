@@ -388,6 +388,24 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   background-clip: text;
   color: transparent;
 }
+.hero h1 .hero__line1,
+.hero h1 .hero__line2 {
+  display: inline;
+  color: var(--white);
+}
+@media (min-width: 800px) {
+  .hero h1 .hero__line1 { display: block; }
+}
+.hero h1 .hero__line2 {
+  opacity: 0.78;
+  font-weight: 300;
+}
+.hero p.lead a {
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  padding-bottom: 1px;
+  transition: border-color 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+.hero p.lead a:hover { border-color: var(--aqua-bright); }
 .hero p.lead { max-width: 620px; margin-bottom: var(--space-6); }
 
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
