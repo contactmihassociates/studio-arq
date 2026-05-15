@@ -315,6 +315,16 @@
     if (img.closest(".hero__bg") || img.closest(".project-hero .hero__bg") || img.closest(".brand-mark")) return;
     if (!img.hasAttribute("loading")) img.setAttribute("loading", "lazy");
     if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
+    // Anti-CLS: if a gallery-style img has no intrinsic dimensions, set sensible
+    // defaults based on its container so the browser reserves the right space
+    // before the image actually loads.
+    if (!img.hasAttribute("width") && !img.hasAttribute("height")) {
+      var inGallery = img.closest(".gallery__item") || img.closest(".project-card__media");
+      if (inGallery) {
+        img.setAttribute("width", "800");
+        img.setAttribute("height", "1000");
+      }
+    }
   }
   // Run once on existing imgs
   document.querySelectorAll("img").forEach(tagImg);
@@ -377,11 +387,33 @@
     const slides = $$(".slide", slideshow);
     if (slides.length > 1) {
       let i = 0;
-      setInterval(() => {
+      let intervalId = null;
+      const advance = function () {
         slides[i].classList.remove("is-active");
         i = (i + 1) % slides.length;
         slides[i].classList.add("is-active");
-      }, 5500);
+      };
+      const start = function () {
+        if (intervalId) return;
+        intervalId = setInterval(advance, 5500);
+      };
+      const stop = function () {
+        if (!intervalId) return;
+        clearInterval(intervalId);
+        intervalId = null;
+      };
+      start();
+
+      // Pause when hero leaves the viewport (no point cycling unseen)
+      if ("IntersectionObserver" in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { e.isIntersecting ? start() : stop(); });
+        }, { rootMargin: "0px" }).observe(slideshow);
+      }
+      // Pause when the tab is hidden
+      document.addEventListener("visibilitychange", function () {
+        document.hidden ? stop() : start();
+      });
     }
     // gentle zoom (toggled, not infinite) — kinder to renderers
     const heroImg = slideshow.querySelector("img");
