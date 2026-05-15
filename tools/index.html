@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en-IN">
 <head>
   <meta charset="utf-8" />
@@ -64,86 +64,102 @@
           <p class="reveal" data-delay="100">Every tool runs locally in your browser. Nothing is saved, nothing is sent — until you decide to send us a real enquiry.</p>
         </div>
 
+        <div class="tools-filter" role="search" aria-label="Filter the toolkit">
+          <div class="tools-filter__search">
+            <input id="toolSearch" type="search" placeholder="Search the toolkit…" aria-label="Search tools" autocomplete="off" />
+          </div>
+          <div class="tools-filter__cats" role="tablist" aria-label="Tool categories">
+            <button class="is-active" type="button" data-cat="all">All</button>
+            <button type="button" data-cat="lead">Get a quote</button>
+            <button type="button" data-cat="cost">Cost &amp; finance</button>
+            <button type="button" data-cat="planning">Planning</button>
+            <button type="button" data-cat="materials">Materials</button>
+            <button type="button" data-cat="interiors">Interiors</button>
+          </div>
+        </div>
+
+        <div class="tools-empty" id="toolsEmpty">No tools match that search. Try a different keyword or category.</div>
+
         <div class="tools-grid">
-          <a href="quote.html" class="tool-link reveal" style="background: var(--grad-brand-soft); border-color: rgba(58,175,228,0.4);">
+          <a href="quote.html" class="tool-link reveal" data-cat="lead" data-keywords="quote proposal wizard contact lead estimate fee discovery" style="background: var(--grad-brand-soft); border-color: rgba(58,175,228,0.4);">
             <span class="tool-link__num">★ Quotation wizard</span>
             <h3>Get a real proposal in 5 steps</h3>
             <p>Multi-step lead form → Abdul replies within 48 hours with a fixed-price proposal.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="cost-estimator.html" class="tool-link reveal">
+          <a href="cost-estimator.html" class="tool-link reveal" data-cat="cost" data-keywords="cost budget project build inr lakh crore residential commercial">
             <span class="tool-link__num">/ 01 · Project cost</span>
             <h3>Project cost estimator</h3>
             <p>Built-up area + project type + grade → ballpark INR range &amp; timeline.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="design-fee.html" class="tool-link reveal" data-delay="100">
+          <a href="design-fee.html" class="tool-link reveal" data-cat="cost" data-keywords="architect fee charge percentage scope retainer" data-delay="100">
             <span class="tool-link__num">/ 02 · Design fee</span>
             <h3>Design fee calculator</h3>
             <p>What does an architect charge? Scope + project value → fee range.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="area-converter.html" class="tool-link reveal" data-delay="200">
+          <a href="area-converter.html" class="tool-link reveal" data-cat="planning" data-keywords="area carpet built up super loading conversion sqft sft" data-delay="200">
             <span class="tool-link__num">/ 03 · Area</span>
             <h3>Carpet ↔ built-up ↔ super</h3>
             <p>Convert between Indian area conventions with Chennai loading factors.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="emi.html" class="tool-link reveal">
+          <a href="emi.html" class="tool-link reveal" data-cat="cost" data-keywords="emi loan home interest tenure bank principal">
             <span class="tool-link__num">/ 04 · EMI</span>
             <h3>Home-loan EMI calculator</h3>
             <p>Principal + rate + tenure → monthly EMI + total interest + chart.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="fsi.html" class="tool-link reveal" data-delay="100">
+          <a href="fsi.html" class="tool-link reveal" data-cat="planning" data-keywords="fsi far cmda dtcp plot zone permissible built-up panchayat" data-delay="100">
             <span class="tool-link__num">/ 05 · FSI</span>
             <h3>FSI / FAR calculator</h3>
             <p>Plot area × Chennai zone FSI → permissible built-up area.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="stamp-duty.html" class="tool-link reveal" data-delay="200">
+          <a href="stamp-duty.html" class="tool-link reveal" data-cat="cost" data-keywords="stamp duty registration tamil nadu tn sale gift partition" data-delay="200">
             <span class="tool-link__num">/ 06 · Stamp duty</span>
             <h3>Stamp duty &amp; registration</h3>
             <p>Tamil Nadu rates (7% + 4%) on your sale value.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="materials.html" class="tool-link reveal">
+          <a href="materials.html" class="tool-link reveal" data-cat="materials" data-keywords="cement steel sand brick aggregate boq quantity rcc">
             <span class="tool-link__num">/ 07 · Materials</span>
             <h3>Material quantity estimator</h3>
             <p>Built-up sq ft → cement bags, steel kg, sand &amp; aggregate, bricks.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="paint.html" class="tool-link reveal" data-delay="100">
+          <a href="paint.html" class="tool-link reveal" data-cat="materials" data-keywords="paint litres coats wall surface emulsion exterior interior" data-delay="100">
             <span class="tool-link__num">/ 08 · Paint</span>
             <h3>Paint quantity calculator</h3>
             <p>Wall area + surface type + coats → litres + indicative cost.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="tiles.html" class="tool-link reveal" data-delay="200">
+          <a href="tiles.html" class="tool-link reveal" data-cat="materials" data-keywords="tile flooring boxes pieces wastage floor" data-delay="200">
             <span class="tool-link__num">/ 09 · Tiles</span>
             <h3>Tile / flooring calculator</h3>
             <p>Floor area + tile size + wastage → number of tiles + boxes.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="room-sizes.html" class="tool-link reveal">
+          <a href="room-sizes.html" class="tool-link reveal" data-cat="planning" data-keywords="room size dimensions bedroom living kitchen bathroom standard">
             <span class="tool-link__num">/ 10 · Room sizes</span>
             <h3>Standard room dimensions</h3>
             <p>Indian residential room sizes — minimum, comfortable, generous.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="lighting.html" class="tool-link reveal" data-delay="100">
+          <a href="lighting.html" class="tool-link reveal" data-cat="interiors" data-keywords="lighting lumens led wattage lux room illumination" data-delay="100">
             <span class="tool-link__num">/ 11 · Lighting</span>
             <h3>Lumens / lighting calculator</h3>
             <p>Room size + use → recommended lumens + suggested LED wattage.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="vastu.html" class="tool-link reveal" data-delay="200">
+          <a href="vastu.html" class="tool-link reveal" data-cat="planning" data-keywords="vastu shastra direction north south east west pooja kubera" data-delay="200">
             <span class="tool-link__num">/ 12 · Vastu</span>
             <h3>Vastu direction guide</h3>
             <p>Room placement by cardinal direction — North, East, South, West.</p>
             <span class="tool-link__arrow" aria-hidden="true">→</span>
           </a>
-          <a href="timeline.html" class="tool-link reveal">
+          <a href="timeline.html" class="tool-link reveal" data-cat="planning" data-keywords="timeline gantt schedule project phase month">
             <span class="tool-link__num">/ 13 · Timeline</span>
             <h3>Project timeline visualiser</h3>
             <p>Project type + area → phase-by-phase Gantt-style timeline.</p>
@@ -163,6 +179,45 @@
     </div>
   </footer>
 
+  <script>
+    // Live filter for the tools grid: category + free-text search
+    (function () {
+      var search = document.getElementById('toolSearch');
+      var catBar = document.querySelector('.tools-filter__cats');
+      var empty  = document.getElementById('toolsEmpty');
+      var cards  = document.querySelectorAll('.tools-grid .tool-link');
+      if (!search || !catBar || !cards.length) return;
+
+      var activeCat = 'all';
+      var query = '';
+
+      function apply() {
+        var q = query.trim().toLowerCase();
+        var shown = 0;
+        cards.forEach(function (a) {
+          var cat = a.getAttribute('data-cat') || '';
+          var kw  = (a.getAttribute('data-keywords') || '').toLowerCase();
+          var text = (a.textContent || '').toLowerCase();
+          var matchCat = activeCat === 'all' || cat === activeCat;
+          var matchQ   = !q || kw.indexOf(q) !== -1 || text.indexOf(q) !== -1;
+          var show = matchCat && matchQ;
+          a.classList.toggle('is-hidden', !show);
+          if (show) shown += 1;
+        });
+        empty.classList.toggle('is-visible', shown === 0);
+      }
+
+      search.addEventListener('input', function () { query = search.value; apply(); });
+      catBar.addEventListener('click', function (e) {
+        var btn = e.target.closest('button[data-cat]');
+        if (!btn) return;
+        activeCat = btn.getAttribute('data-cat');
+        catBar.querySelectorAll('button').forEach(function (b) { b.classList.toggle('is-active', b === btn); });
+        apply();
+      });
+      apply();
+    })();
+  </script>
   <script src="../assets/js/site.js" defer></script>
 </body>
 </html>

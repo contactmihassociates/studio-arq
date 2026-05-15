@@ -2282,6 +2282,84 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 }
 
 /* =========================================
+   Tools-index filter bar (categories + search)
+   ========================================= */
+.tools-filter {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+@media (min-width: 800px) {
+  .tools-filter { grid-template-columns: 1fr auto; align-items: center; }
+}
+.tools-filter__search {
+  position: relative;
+}
+.tools-filter__search input {
+  width: 100%;
+  padding: 12px 16px 12px 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  color: var(--white);
+  font: inherit;
+  font-size: var(--step-0);
+}
+.tools-filter__search input:focus {
+  outline: none;
+  border-color: var(--aqua);
+  background: rgba(255,255,255,0.08);
+}
+.tools-filter__search::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233AAFE4' stroke-width='2'><circle cx='11' cy='11' r='8'/><path d='M21 21l-4.35-4.35'/></svg>");
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+}
+.tools-filter__cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.tools-filter__cats button {
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255,255,255,0.75);
+  font-size: var(--step--1);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 200ms var(--ease-out);
+}
+.tools-filter__cats button:hover { color: var(--white); border-color: var(--white); }
+.tools-filter__cats button.is-active {
+  background: var(--grad-brand);
+  color: var(--navy-900);
+  border-color: transparent;
+  font-weight: 600;
+}
+.tool-link.is-hidden { display: none !important; }
+.tools-empty {
+  padding: var(--space-7);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+  display: none;
+}
+.tools-empty.is-visible { display: block; }
+
+/* =========================================
    "Try this next" — cross-tool deeplinks
    ========================================= */
 .tool-next {
