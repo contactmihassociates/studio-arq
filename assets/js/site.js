@@ -459,6 +459,13 @@
     }
   }
 
+  /* ----- service worker registration -------------------------- */
+  if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost" || location.hostname === "127.0.0.1")) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("/sw.js").catch(function () { /* silent */ });
+    });
+  }
+
   /* ----- nav active section highlight ------------------------- */
   const navLinks = $$(".nav a[href^='#']");
   const sections = navLinks
