@@ -210,59 +210,7 @@
   window.addEventListener("scroll", onProgress, { passive: true });
   onProgress();
 
-  /* ----- custom cursor (desktop, only after first mouse move) - */
-  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  if (fine) {
-    let dot, ring, rafId = 0;
-    let rx = 0, ry = 0, dx = 0, dy = 0, lastDX = 0, lastDY = 0;
-    let idleCount = 0;
-
-    const ensureNodes = () => {
-      if (dot) return;
-      dot  = document.createElement("div");
-      ring = document.createElement("div");
-      dot.className = "cursor-dot";
-      ring.className = "cursor-ring";
-      document.body.appendChild(dot);
-      document.body.appendChild(ring);
-    };
-
-    const tick = () => {
-      rx += (dx - rx) * 0.18;
-      ry += (dy - ry) * 0.18;
-      if (ring) ring.style.transform = "translate(" + rx + "px," + ry + "px) translate(-50%,-50%)";
-
-      // stop the loop if the cursor has settled (avoids endless rAF)
-      const settled = Math.abs(dx - rx) < 0.3 && Math.abs(dy - ry) < 0.3 && dx === lastDX && dy === lastDY;
-      if (settled) {
-        idleCount += 1;
-      } else {
-        idleCount = 0;
-      }
-      lastDX = dx; lastDY = dy;
-
-      if (idleCount > 8) {
-        rafId = 0;
-        return; // stop; will restart on next mousemove
-      }
-      rafId = requestAnimationFrame(tick);
-    };
-
-    document.addEventListener("mousemove", (e) => {
-      ensureNodes();
-      dx = e.clientX; dy = e.clientY;
-      dot.style.transform = "translate(" + dx + "px," + dy + "px) translate(-50%,-50%)";
-      if (!rafId) { idleCount = 0; rafId = requestAnimationFrame(tick); }
-    }, { passive: true });
-
-    const hovers = "a, button, [data-lightbox], summary, .project-card, .gallery__item";
-    document.addEventListener("mouseover", (e) => {
-      if (e.target.closest(hovers)) document.body.classList.add("is-hovering-link");
-    });
-    document.addEventListener("mouseout", (e) => {
-      if (e.target.closest(hovers)) document.body.classList.remove("is-hovering-link");
-    });
-  }
+  /* Native cursor is used — custom cursor removed. */
 
   /* ----- splash dismissal ------------------------------------- */
   const splash = $(".splash");
