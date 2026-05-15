@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Home Loan EMI Calculator — studio arq</title>
+  <meta name="description" content="Calculate your home loan EMI for the construction value. Principal, rate and tenure → monthly EMI, total interest and total amount payable. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/emi.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/hussain-haji-kattupakam/0119.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 04 · EMI</span>
+        <h1>Home loan <span class="gradient-text">EMI calculator.</span></h1>
+        <p class="lead" style="max-width:640px;">Pair this with the project cost estimator to see what your monthly outgo would be. Standard reducing-balance EMI formula, same numbers your bank will quote.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="emi-p">Loan amount (₹)</label>
+              <div class="range-row">
+                <input id="emi-p-slider" type="range" min="500000" max="50000000" step="100000" value="5000000" />
+                <input id="emi-p" type="number" min="100000" max="500000000" step="50000" value="5000000" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="emi-r">Interest rate (% per year)</label>
+              <div class="range-row">
+                <input id="emi-r-slider" type="range" min="5" max="15" step="0.05" value="8.5" />
+                <input id="emi-r" type="number" min="3" max="20" step="0.05" value="8.5" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="emi-y">Tenure (years)</label>
+              <div class="range-row">
+                <input id="emi-y-slider" type="range" min="3" max="30" step="1" value="20" />
+                <input id="emi-y" type="number" min="1" max="30" step="1" value="20" />
+              </div>
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var p = document.getElementById('emi-p');
+      var r = document.getElementById('emi-r');
+      var y = document.getElementById('emi-y');
+      var out = root.querySelector('[data-tool-output]');
+
+      function calc() {
+        var P = ARQ_TOOLS.toNum(p.value, 0);
+        var R = ARQ_TOOLS.toNum(r.value, 0) / 12 / 100;
+        var N = ARQ_TOOLS.toInt(y.value, 0) * 12;
+        if (!P || !R || !N) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter loan, rate and tenure.</div>';
+          return;
+        }
+        var emi = P * R * Math.pow(1+R, N) / (Math.pow(1+R, N) - 1);
+        var total = emi * N;
+        var interest = total - P;
+        var pctP = (P / total) * 100;
+        var pctI = (interest / total) * 100;
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Monthly EMI</span><span class="val">' + ARQ_TOOLS.fmtINRflat(Math.round(emi)) + '</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Principal</span><span class="val">' + ARQ_TOOLS.fmtINR(P) + '</span></div>' +
+            '<div><span class="lbl">Total interest</span><span class="val">' + ARQ_TOOLS.fmtINR(interest) + '</span></div>' +
+            '<div><span class="lbl">Total payable</span><span class="val">' + ARQ_TOOLS.fmtINR(total) + '</span></div>' +
+            '<div><span class="lbl">Tenure</span><span class="val">' + (N/12) + ' years (' + N + ' months)</span></div>' +
+          '</div>' +
+          '<div style="height:14px;border-radius:999px;overflow:hidden;display:flex;border:1px solid var(--line-strong);">' +
+            '<div style="width:' + pctP.toFixed(1) + '%;background:var(--aqua);" title="Principal"></div>' +
+            '<div style="width:' + pctI.toFixed(1) + '%;background:var(--green);" title="Interest"></div>' +
+          '</div>' +
+          '<div style="display:flex;gap:var(--space-5);font-size:var(--step--2);letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);">' +
+            '<span><span style="display:inline-block;width:10px;height:10px;background:var(--aqua);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Principal · ' + pctP.toFixed(0) + '%</span>' +
+            '<span><span style="display:inline-block;width:10px;height:10px;background:var(--green);border-radius:2px;margin-right:6px;vertical-align:middle;"></span>Interest · ' + pctI.toFixed(0) + '%</span>' +
+          '</div>' +
+          '<p class="tool-out__note">Standard reducing-balance EMI formula. Actual rates depend on lender, credit score and CIBIL. Most banks today quote 8.4 – 9.2% for salaried borrowers.</p>';
+      }
+      ARQ_TOOLS.bindRangeNumber(root, '#emi-p-slider', '#emi-p', calc);
+      ARQ_TOOLS.bindRangeNumber(root, '#emi-r-slider', '#emi-r', calc);
+      ARQ_TOOLS.bindRangeNumber(root, '#emi-y-slider', '#emi-y', calc);
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

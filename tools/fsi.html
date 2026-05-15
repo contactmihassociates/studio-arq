@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>FSI / FAR Calculator — Chennai · studio arq</title>
+  <meta name="description" content="Calculate permissible built-up area in Chennai using CMDA / DTCP FSI values for residential, commercial and mixed-use plots. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/fsi.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/akp-illam/0016.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 05 · FSI</span>
+        <h1>FSI / FAR <span class="gradient-text">calculator.</span></h1>
+        <p class="lead" style="max-width:640px;">How much can you legally build on your plot? Pick your zone (CMDA / DTCP / panchayat) and see your permissible built-up area, max floors and typical setbacks.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="fsi-plot">Plot area (sq ft)</label>
+              <div class="range-row">
+                <input id="fsi-plot-slider" type="range" min="400" max="50000" step="50" value="2400" />
+                <input id="fsi-plot" type="number" min="100" max="500000" step="10" value="2400" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="fsi-zone">Zone / authority</label>
+              <select id="fsi-zone">
+                <option value="cmda-res1"  data-fsi="1.5" data-cov="60" data-flr="3">CMDA · Primary residential</option>
+                <option value="cmda-res2"  data-fsi="2.0" data-cov="65" data-flr="4" selected>CMDA · Mixed residential</option>
+                <option value="cmda-comm"  data-fsi="2.5" data-cov="65" data-flr="6">CMDA · Commercial</option>
+                <option value="cmda-spcl"  data-fsi="3.25" data-cov="50" data-flr="9">CMDA · Special / IT corridor</option>
+                <option value="dtcp"       data-fsi="1.5" data-cov="55" data-flr="3">DTCP · Residential (outside metro)</option>
+                <option value="panchayat"  data-fsi="1.5" data-cov="50" data-flr="2">Panchayat · Village</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fsi-units">Unit size (carpet sq ft per dwelling — apartments only)</label>
+              <input id="fsi-units" type="number" min="200" max="5000" step="50" value="900" />
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+
+        <p style="margin-top:var(--space-5); font-size:var(--step--1); color:rgba(255,255,255,0.55);">
+          <strong style="color:var(--white);">Heads up.</strong> Chennai FSI rules change with road width, plot frontage, and special incentives (TDR, premium FSI). The values above are CMDA defaults — always confirm with your architect before purchase.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var plot = document.getElementById('fsi-plot');
+      var zone = document.getElementById('fsi-zone');
+      var units = document.getElementById('fsi-units');
+      var out = root.querySelector('[data-tool-output]');
+
+      function calc() {
+        var area = ARQ_TOOLS.toNum(plot.value, 0);
+        var opt = zone.options[zone.selectedIndex];
+        var fsi = parseFloat(opt.dataset.fsi);
+        var cov = parseFloat(opt.dataset.cov);
+        var flrs = parseInt(opt.dataset.flr, 10);
+        var unitSize = ARQ_TOOLS.toNum(units.value, 900);
+        if (!area || area < 100) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter plot area to see permissible build.</div>';
+          return;
+        }
+        var maxBuild = area * fsi;
+        var footprint = area * (cov / 100);
+        var dwellings = Math.max(1, Math.floor((maxBuild * 0.75) / unitSize));
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Maximum built-up area</span><span class="val">' + Math.round(maxBuild).toLocaleString('en-IN') + ' sq ft</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Plot area</span><span class="val">' + Math.round(area).toLocaleString('en-IN') + ' sq ft</span></div>' +
+            '<div><span class="lbl">FSI / FAR</span><span class="val">' + fsi.toFixed(2) + '</span></div>' +
+            '<div><span class="lbl">Ground coverage</span><span class="val">' + cov + '%</span></div>' +
+            '<div><span class="lbl">Footprint allowed</span><span class="val">' + Math.round(footprint).toLocaleString('en-IN') + ' sq ft</span></div>' +
+            '<div><span class="lbl">Max floors (indicative)</span><span class="val">' + flrs + ' floors</span></div>' +
+            '<div><span class="lbl">Dwelling units (est.)</span><span class="val">' + dwellings + ' × ' + unitSize + ' sqft</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">Setbacks vary with plot frontage and road width: typically 1.5–3m front, 1.0–1.5m sides for residential. Premium FSI is available in some zones at 30–50% extra.</p>';
+      }
+      ARQ_TOOLS.bindRangeNumber(root, '#fsi-plot-slider', '#fsi-plot', calc);
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

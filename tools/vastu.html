@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Vastu Direction Guide — studio arq</title>
+  <meta name="description" content="Quick reference for vastu shastra room placement by cardinal direction — North, East, South, West and the four corners. Free guide by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/vastu.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <style>
+    .vastu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: 540px;
+      margin: 0 auto;
+      aspect-ratio: 1;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--navy-800);
+      position: relative;
+    }
+    .vastu-cell {
+      padding: var(--space-3);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      align-content: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: background 200ms var(--ease-out);
+      text-align: center;
+    }
+    .vastu-cell:nth-child(3n) { border-right: 0; }
+    .vastu-cell:nth-child(n+7) { border-bottom: 0; }
+    .vastu-cell:hover, .vastu-cell.is-active { background: rgba(58,175,228,0.10); }
+    .vastu-cell .dir {
+      font-family: var(--font-mono);
+      font-size: var(--step--2);
+      letter-spacing: 0.18em;
+      color: var(--aqua-bright);
+    }
+    .vastu-cell .name {
+      font-family: var(--font-display);
+      font-size: var(--step-1);
+      color: var(--white);
+    }
+    .vastu-center {
+      background: linear-gradient(135deg, rgba(92,198,131,0.18), rgba(58,175,228,0.18));
+      pointer-events: none;
+    }
+    .vastu-center .name {
+      background: var(--grad-brand);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .vastu-detail {
+      padding: var(--space-6);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.02);
+      margin-top: var(--space-6);
+      min-height: 200px;
+    }
+    .vastu-detail h3 {
+      font-family: var(--font-display);
+      font-size: var(--step-3);
+      margin: 0 0 var(--space-2);
+    }
+    .vastu-detail .deity {
+      font-size: var(--step--1);
+      color: var(--aqua-bright);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+    }
+    .vastu-detail .lists { display: grid; grid-template-columns: 1fr; gap: var(--space-5); margin-top: var(--space-4); }
+    @media (min-width: 700px) { .vastu-detail .lists { grid-template-columns: 1fr 1fr; } }
+    .vastu-detail h5 { color: var(--green-bright); }
+    .vastu-detail .avoid h5 { color: rgba(255,255,255,0.6); }
+    .vastu-detail ul { list-style: none; padding: 0; margin: 0; }
+    .vastu-detail li { padding-left: 18px; position: relative; margin-bottom: 6px; }
+    .vastu-detail li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 1px; background: var(--green-bright); }
+    .vastu-detail .avoid li::before { background: rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/akp-illam/0081.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 12 · Vastu</span>
+        <h1>Vastu direction <span class="gradient-text">guide.</span></h1>
+        <p class="lead" style="max-width:640px;">A practical reference grid of vastu shastra principles. Click any cardinal direction or corner to see what's traditionally placed there — and what's recommended to avoid.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="vastu-grid" id="vastuGrid" role="grid" aria-label="Vastu direction grid">
+          <button class="vastu-cell" data-dir="nw"><span class="dir">NW</span><span class="name">Vayavya</span></button>
+          <button class="vastu-cell" data-dir="n"><span class="dir">North</span><span class="name">Kubera</span></button>
+          <button class="vastu-cell" data-dir="ne"><span class="dir">NE</span><span class="name">Eeshanya</span></button>
+          <button class="vastu-cell" data-dir="w"><span class="dir">West</span><span class="name">Varuna</span></button>
+          <div class="vastu-cell vastu-center"><span class="dir">Centre</span><span class="name">Brahmasthan</span></div>
+          <button class="vastu-cell" data-dir="e"><span class="dir">East</span><span class="name">Indra</span></button>
+          <button class="vastu-cell" data-dir="sw"><span class="dir">SW</span><span class="name">Nairutya</span></button>
+          <button class="vastu-cell" data-dir="s"><span class="dir">South</span><span class="name">Yama</span></button>
+          <button class="vastu-cell" data-dir="se"><span class="dir">SE</span><span class="name">Agneya</span></button>
+        </div>
+
+        <div class="vastu-detail" id="vastuDetail" aria-live="polite">
+          <span class="deity">Tap a direction</span>
+          <h3>Pick any cardinal direction above</h3>
+          <p style="color: rgba(255,255,255,0.65); margin: 0;">The grid mirrors the layout of your home as seen from above, with North at top. Click any cell to read what vastu shastra traditionally places there.</p>
+        </div>
+
+        <p style="margin-top:var(--space-5); font-size:var(--step--1); color:rgba(255,255,255,0.55); max-width:760px;">
+          <strong style="color:var(--white);">A studio note.</strong> We treat vastu as a useful design heuristic — it overlaps surprisingly well with passive solar planning in tropical climates. Hard rules are softened when site, family or budget demand it.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+      var INFO = {
+        ne: { deity: 'Eeshanya · Lord Shiva · Water element', title: 'Northeast — most auspicious',
+              best: ['Pooja / prayer room', 'Main water source / underground tank', 'Reception / sit-out', 'Open verandah'],
+              avoid:['Toilet or bedroom','Heavy storage','Staircase','Septic tank'] },
+        n:  { deity: 'Kubera · Wealth · Earth + Mercury', title: 'North — wealth & opportunity',
+              best: ['Cash / wealth storage', 'Office or study', 'Living room', 'Wide windows'],
+              avoid:['Toilet', 'Heavy walls / no openings'] },
+        nw: { deity: 'Vayavya · Vayu · Air element', title: 'Northwest — air, movement, guests',
+              best: ['Guest bedroom', 'Children’s bedroom', 'Garage / storage that moves', 'Toilets (acceptable)'],
+              avoid:['Master bedroom', 'Pooja room'] },
+        e:  { deity: 'Indra · Lord of the East · Sun rises', title: 'East — health & openings',
+              best: ['Main entrance', 'Living room', 'Pooja room', 'Wide windows for morning sun'],
+              avoid:['Heavy walls', 'Tall trees blocking sun', 'Toilet'] },
+        w:  { deity: 'Varuna · Water element', title: 'West — balance & study',
+              best: ['Children’s bedroom', 'Dining room', 'Study room', 'Guest bedroom'],
+              avoid:['Pooja room', 'Main entrance to the west of plot'] },
+        se: { deity: 'Agneya · Agni · Fire element', title: 'Southeast — fire, kitchen',
+              best: ['Kitchen / cooking platform facing east', 'Electrical panel / generator', 'Fireplace'],
+              avoid:['Bedroom', 'Toilet directly above SE', 'Pooja room'] },
+        s:  { deity: 'Yama · South · Heavy elements', title: 'South — weight & stability',
+              best: ['Master bedroom (SW preferred but S OK)', 'Storage / heavy furniture'],
+              avoid:['Main entrance (avoid)', 'Open courtyard', 'Underground tank'] },
+        sw: { deity: 'Nairutya · Earth element', title: 'Southwest — heaviest & most stable',
+              best: ['Master bedroom', 'Heavy storage', 'Strong walls', 'Built-up corner'],
+              avoid:['Toilet', 'Open verandah', 'Water tank', 'Cuts / extensions'] }
+      };
+      var grid = document.getElementById('vastuGrid');
+      var detail = document.getElementById('vastuDetail');
+      grid.addEventListener('click', function (e) {
+        var cell = e.target.closest('[data-dir]');
+        if (!cell) return;
+        document.querySelectorAll('.vastu-cell').forEach(function (c) { c.classList.remove('is-active'); });
+        cell.classList.add('is-active');
+        var info = INFO[cell.dataset.dir];
+        detail.innerHTML =
+          '<span class="deity">' + info.deity + '</span>' +
+          '<h3>' + info.title + '</h3>' +
+          '<div class="lists">' +
+            '<div><h5>Best uses</h5><ul>' + info.best.map(function (i) { return '<li>' + i + '</li>'; }).join('') + '</ul></div>' +
+            '<div class="avoid"><h5>Avoid</h5><ul>' + info.avoid.map(function (i) { return '<li>' + i + '</li>'; }).join('') + '</ul></div>' +
+          '</div>';
+      });
+      // open NE by default
+      grid.querySelector('[data-dir=ne]').click();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

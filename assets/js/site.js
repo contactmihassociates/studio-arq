@@ -187,6 +187,26 @@
     });
   }
 
+  /* ----- floating WhatsApp button ----------------------------- */
+  if (!document.querySelector(".wa-fab")) {
+    const waPhone = "917200078603";
+    const waMsg   = encodeURIComponent("Hi Abdul — I'd like to talk to studio arq about a project.");
+    const wa = document.createElement("a");
+    wa.className = "wa-fab";
+    wa.href = "https://wa.me/" + waPhone + "?text=" + waMsg;
+    wa.target = "_blank";
+    wa.rel = "noopener";
+    wa.setAttribute("aria-label", "Chat with studio arq on WhatsApp");
+    wa.innerHTML =
+      '<span class="wa-fab__icon" aria-hidden="true">' +
+        '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 14.6c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1s-.7.9-.9 1.1-.3.2-.6 0c-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1.1 2.8 1.2 3 2.1 3.3 5.2 4.6c.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.6-.7 1.9-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.1-1.3c1.5.8 3.2 1.3 4.9 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.2 14.9 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/></svg>' +
+      '</span>' +
+      '<span class="wa-fab__label">WhatsApp</span>';
+    document.body.appendChild(wa);
+    // Show after small delay (avoid flash during splash)
+    setTimeout(function () { wa.classList.add("is-visible"); }, 1200);
+  }
+
   /* ----- back to top button ----------------------------------- */
   const toTop = document.createElement("button");
   toTop.className = "to-top";

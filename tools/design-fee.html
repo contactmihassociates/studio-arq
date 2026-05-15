@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Design Fee Calculator — studio arq</title>
+  <meta name="description" content="What does an architect charge in Chennai? Calculate design fees by scope (architecture only, arch+interior, full service, 3D only) and project value. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/design-fee.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1h20M1 7h20M1 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/akp-illam/0083.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 02 · Design fee</span>
+        <h1>What does an <span class="gradient-text">architect charge?</span></h1>
+        <p class="lead" style="max-width:640px;">Pick your scope and enter the construction value — get a transparent fee range. Indian architecture practices typically bill as a percentage of project value.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="df-scope">Scope of work</label>
+              <select id="df-scope">
+                <option value="3d">3D visualisation only</option>
+                <option value="arch" selected>Architecture (concept → working drawings)</option>
+                <option value="full">Architecture + interiors + supervision</option>
+                <option value="interior">Interior design only</option>
+                <option value="retainer">Developer retainer (multi-project)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="df-value">Construction value (₹)</label>
+              <div class="range-row">
+                <input id="df-value-slider" type="range" min="500000" max="100000000" step="100000" value="6000000" />
+                <input id="df-value" type="number" min="100000" max="1000000000" step="50000" value="6000000" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="df-region">Region</label>
+              <select id="df-region">
+                <option value="chennai" selected>Chennai metro</option>
+                <option value="tn">Other Tamil Nadu</option>
+              </select>
+            </div>
+            <div style="display:flex; gap:var(--space-3); flex-wrap:wrap;">
+              <a href="../contact.html" class="btn btn--primary btn--icon btn--sm">Get a real quote</a>
+              <a href="index.html" class="btn btn--sm">All tools</a>
+            </div>
+          </div>
+
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      if (!root) return;
+      var scope = document.getElementById('df-scope');
+      var value = document.getElementById('df-value');
+      var region = document.getElementById('df-region');
+      var out = root.querySelector('[data-tool-output]');
+
+      var SCOPE = {
+        '3d':       { lo: 0.8, hi: 1.5, label: '3D visualisation only' },
+        'arch':     { lo: 3.0, hi: 5.0, label: 'Architecture (concept → working drawings)' },
+        'full':     { lo: 6.0, hi: 9.0, label: 'Architecture + interiors + supervision' },
+        'interior': { lo: 4.0, hi: 7.0, label: 'Interior design only' },
+        'retainer': { lo: 2.5, hi: 4.5, label: 'Developer retainer' }
+      };
+      var REGION = { chennai: 1.0, tn: 0.9 };
+
+      function calc() {
+        var s = SCOPE[scope.value];
+        var v = ARQ_TOOLS.toNum(value.value, 0);
+        var r = REGION[region.value];
+        if (!s || !v || v < 100000) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter construction value to see a fee range.</div>';
+          return;
+        }
+        var lo = v * (s.lo / 100) * r;
+        var hi = v * (s.hi / 100) * r;
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Indicative design fee</span><span class="val">' + ARQ_TOOLS.fmtRange(lo, hi) + '</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Scope</span><span class="val" style="font-size:var(--step-0);">' + s.label + '</span></div>' +
+            '<div><span class="lbl">Fee range</span><span class="val">' + s.lo + '% — ' + s.hi + '%</span></div>' +
+            '<div><span class="lbl">Construction value</span><span class="val">' + ARQ_TOOLS.fmtINR(v) + '</span></div>' +
+            '<div><span class="lbl">Region adjustment</span><span class="val">' + (r === 1 ? 'Chennai · 1.00×' : 'Other TN · 0.90×') + '</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">Fees are typically billed in 4 — 6 milestones: concept · schematic · drawings · approvals · supervision. studio arq shares a fixed-price proposal after the first call.</p>';
+      }
+      ARQ_TOOLS.bindRangeNumber(root, '#df-value-slider', '#df-value', calc);
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Tile / Flooring Calculator — studio arq</title>
+  <meta name="description" content="How many tiles do you need? Enter floor area and tile size — get pieces, boxes, sqft and indicative cost. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/tiles.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/interiors/0020.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 09 · Tiles</span>
+        <h1>Tile / flooring <span class="gradient-text">calculator.</span></h1>
+        <p class="lead" style="max-width:640px;">Enter your floor area + tile size, get the number of pieces and boxes. Adds 12% wastage by default (cuts, breakages and one extra box for future repairs).</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="tl-area">Floor area (sq ft)</label>
+              <div class="range-row">
+                <input id="tl-area-slider" type="range" min="20" max="5000" step="10" value="200" />
+                <input id="tl-area" type="number" min="5" max="50000" step="5" value="200" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="tl-size">Tile size</label>
+              <select id="tl-size">
+                <option value="300x300">300 × 300 mm · 1×1 ft</option>
+                <option value="600x600" selected>600 × 600 mm · 2×2 ft</option>
+                <option value="600x1200">600 × 1200 mm · 2×4 ft (large)</option>
+                <option value="800x1600">800 × 1600 mm · big format</option>
+                <option value="custom">Custom (enter below)</option>
+              </select>
+            </div>
+            <div class="row two" data-custom style="display:none;">
+              <div class="field">
+                <label for="tl-w">Tile width (mm)</label>
+                <input id="tl-w" type="number" min="50" max="3000" step="10" value="600" />
+              </div>
+              <div class="field">
+                <label for="tl-h">Tile height (mm)</label>
+                <input id="tl-h" type="number" min="50" max="3000" step="10" value="600" />
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="tl-rate">Cost per tile (₹)</label>
+                <input id="tl-rate" type="number" min="10" max="10000" step="5" value="120" />
+              </div>
+              <div class="field">
+                <label for="tl-perbox">Tiles per box</label>
+                <input id="tl-perbox" type="number" min="1" max="50" step="1" value="4" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="tl-waste">Wastage allowance (%)</label>
+              <input id="tl-waste" type="number" min="0" max="30" step="1" value="12" />
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var area = document.getElementById('tl-area');
+      var size = document.getElementById('tl-size');
+      var w = document.getElementById('tl-w');
+      var h = document.getElementById('tl-h');
+      var rate = document.getElementById('tl-rate');
+      var perbox = document.getElementById('tl-perbox');
+      var waste = document.getElementById('tl-waste');
+      var out = root.querySelector('[data-tool-output]');
+      var custom = document.querySelector('[data-custom]');
+
+      size.addEventListener('change', function () {
+        if (size.value === 'custom') { custom.style.display = ''; }
+        else {
+          custom.style.display = 'none';
+          var parts = size.value.split('x');
+          w.value = parts[0]; h.value = parts[1];
+        }
+      });
+
+      function calc() {
+        var a = ARQ_TOOLS.toNum(area.value, 0);
+        var W = ARQ_TOOLS.toNum(w.value, 0);
+        var H = ARQ_TOOLS.toNum(h.value, 0);
+        var ws = ARQ_TOOLS.toNum(waste.value, 12) / 100;
+        var pb = ARQ_TOOLS.toInt(perbox.value, 4);
+        var r = ARQ_TOOLS.toNum(rate.value, 120);
+        if (!a || !W || !H) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter area &amp; tile size.</div>';
+          return;
+        }
+        // 1 sq ft = 92903.04 sq mm. Tile area in sq ft = W*H / 92903.04
+        var tileSqft = (W * H) / 92903.04;
+        var raw = a / tileSqft;
+        var withWaste = Math.ceil(raw * (1 + ws));
+        var boxes = Math.ceil(withWaste / pb);
+        var totalCost = withWaste * r;
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">You need</span><span class="val">' + withWaste.toLocaleString('en-IN') + ' tiles · ' + boxes + ' boxes</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Floor area</span><span class="val">' + Math.round(a).toLocaleString('en-IN') + ' sq ft</span></div>' +
+            '<div><span class="lbl">Single tile</span><span class="val">' + W + ' × ' + H + ' mm · ' + tileSqft.toFixed(2) + ' sqft</span></div>' +
+            '<div><span class="lbl">Tiles before wastage</span><span class="val">' + Math.ceil(raw).toLocaleString('en-IN') + '</span></div>' +
+            '<div><span class="lbl">After ' + Math.round(ws*100) + '% wastage</span><span class="val">' + withWaste.toLocaleString('en-IN') + ' pcs</span></div>' +
+            '<div><span class="lbl">Indicative cost</span><span class="val">' + ARQ_TOOLS.fmtINR(totalCost) + '</span></div>' +
+            '<div><span class="lbl">Per sqft</span><span class="val">' + ARQ_TOOLS.fmtINR(totalCost / a) + '</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">Order at least one extra box for future repairs — dye-lots vary between batches.</p>';
+      }
+      ARQ_TOOLS.bindRangeNumber(root, '#tl-area-slider', '#tl-area', calc);
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

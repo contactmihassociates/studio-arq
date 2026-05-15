@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Carpet ↔ Built-up ↔ Super Area Converter — studio arq</title>
+  <meta name="description" content="Convert between carpet area, built-up area and super built-up area with realistic Chennai loading factors. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/area-converter.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/bloom-apartments/0080.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 03 · Area</span>
+        <h1>Carpet ↔ Built-up ↔ <span class="gradient-text">Super area.</span></h1>
+        <p class="lead" style="max-width:640px;">Three different ways to measure the same flat. Enter what your builder gave you in any one and see the other two — with realistic Chennai loading factors.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="ac-from">Convert from</label>
+              <select id="ac-from">
+                <option value="carpet">Carpet area</option>
+                <option value="builtup" selected>Built-up area</option>
+                <option value="super">Super built-up area</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="ac-value">Area (sq ft)</label>
+              <input id="ac-value" type="number" min="50" max="100000" step="10" value="1200" />
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="ac-bua">Built-up loading (%)</label>
+                <input id="ac-bua" type="number" min="5" max="40" step="1" value="15" />
+              </div>
+              <div class="field">
+                <label for="ac-super">Super loading (%)</label>
+                <input id="ac-super" type="number" min="10" max="60" step="1" value="25" />
+              </div>
+            </div>
+            <p style="font-size:var(--step--2); color:rgba(255,255,255,0.5); margin:0;">
+              Defaults are typical for Chennai mid-rise residential: 15% for walls + 25% for common areas. Apartments with more amenities go higher.
+            </p>
+          </div>
+
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var from = document.getElementById('ac-from');
+      var value = document.getElementById('ac-value');
+      var bua = document.getElementById('ac-bua');
+      var sup = document.getElementById('ac-super');
+      var out = root.querySelector('[data-tool-output]');
+
+      function calc() {
+        var v = ARQ_TOOLS.toNum(value.value, 0);
+        var bL = ARQ_TOOLS.toNum(bua.value, 15) / 100;
+        var sL = ARQ_TOOLS.toNum(sup.value, 25) / 100;
+        if (!v || v < 50) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter an area to convert.</div>';
+          return;
+        }
+        var carpet, builtup, sBuiltup;
+        if (from.value === 'carpet')   { carpet = v;            builtup = v * (1 + bL);            sBuiltup = builtup * (1 + sL); }
+        if (from.value === 'builtup')  { builtup = v;           carpet = v / (1 + bL);             sBuiltup = builtup * (1 + sL); }
+        if (from.value === 'super')    { sBuiltup = v;          builtup = v / (1 + sL);            carpet = builtup / (1 + bL);   }
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Equivalent — three ways</span><span class="val" style="font-size:var(--step-3);">' + Math.round(carpet).toLocaleString('en-IN') + ' / ' + Math.round(builtup).toLocaleString('en-IN') + ' / ' + Math.round(sBuiltup).toLocaleString('en-IN') + ' sq ft</span></div>' +
+          '<div class="tool-out__rows" style="grid-template-columns: repeat(3, 1fr);">' +
+            '<div><span class="lbl">Carpet area</span><span class="val">' + Math.round(carpet).toLocaleString('en-IN') + ' sq ft</span></div>' +
+            '<div><span class="lbl">Built-up area</span><span class="val">' + Math.round(builtup).toLocaleString('en-IN') + ' sq ft</span></div>' +
+            '<div><span class="lbl">Super built-up</span><span class="val">' + Math.round(sBuiltup).toLocaleString('en-IN') + ' sq ft</span></div>' +
+          '</div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Wall loading (carpet → BUA)</span><span class="val">+' + Math.round(bL*100) + '%</span></div>' +
+            '<div><span class="lbl">Common-area loading (BUA → SBUA)</span><span class="val">+' + Math.round(sL*100) + '%</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">RERA (since 2016) requires Indian developers to declare <strong>carpet area</strong>. Older brochures still use super built-up to look generous.</p>';
+      }
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

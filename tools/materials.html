@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Material Quantity Estimator — studio arq</title>
+  <meta name="description" content="Estimate cement, steel, sand, aggregate and brick quantities for your construction project based on built-up area. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/materials.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/hussain-haji-kattupakam/0114.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 07 · Materials</span>
+        <h1>Material <span class="gradient-text">quantity estimator.</span></h1>
+        <p class="lead" style="max-width:640px;">Indicative quantity of cement, steel, sand, aggregate and bricks for a typical RCC residential build in Chennai. Useful for budgeting BOQs before you talk to a contractor.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="mat-area">Built-up area (sq ft)</label>
+              <div class="range-row">
+                <input id="mat-area-slider" type="range" min="500" max="20000" step="100" value="2400" />
+                <input id="mat-area" type="number" min="100" max="200000" step="50" value="2400" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="mat-grade">Structure grade</label>
+              <select id="mat-grade">
+                <option value="0.85">Light (G+1 small house)</option>
+                <option value="1.0" selected>Standard (G+2 residence)</option>
+                <option value="1.15">Heavy (G+3+ or commercial)</option>
+              </select>
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var area = document.getElementById('mat-area');
+      var grade = document.getElementById('mat-grade');
+      var out = root.querySelector('[data-tool-output]');
+      var M = ARQ_TOOLS.MATERIAL;
+      function calc() {
+        var a = ARQ_TOOLS.toNum(area.value, 0);
+        var g = ARQ_TOOLS.toNum(grade.value, 1.0);
+        if (!a || a < 100) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter built-up area to estimate materials.</div>';
+          return;
+        }
+        var units = a / 100;
+        var qty = {
+          cement:    Math.round(M.cementBags * units * g),
+          steel:     Math.round(M.steelKg * units * g),
+          sand:      Math.round(M.sandCft * units * g),
+          aggregate: Math.round(M.aggregateCft * units * g),
+          bricks:    Math.round(M.bricks * units * g)
+        };
+        var cost = {
+          cement:    qty.cement * M.rates.cementBag,
+          steel:     qty.steel * M.rates.steelKg,
+          sand:      qty.sand * M.rates.sandCft,
+          aggregate: qty.aggregate * M.rates.aggregateCft,
+          bricks:    qty.bricks * M.rates.brick
+        };
+        var total = cost.cement + cost.steel + cost.sand + cost.aggregate + cost.bricks;
+
+        function row(name, q, unit, c) {
+          return '<div><span class="lbl">' + name + '</span><span class="val" style="font-size:var(--step-0);">' + q.toLocaleString('en-IN') + ' ' + unit + '</span><span style="font-family:var(--font-mono);font-size:var(--step--2);color:var(--aqua-bright);margin-top:2px;">' + ARQ_TOOLS.fmtINR(c) + '</span></div>';
+        }
+
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Indicative materials bill</span><span class="val">' + ARQ_TOOLS.fmtINR(total) + '</span></div>' +
+          '<div class="tool-out__rows" style="grid-template-columns: repeat(2, 1fr);">' +
+            row('Cement (50kg bags)', qty.cement, 'bags', cost.cement) +
+            row('Steel (TMT bars)', qty.steel, 'kg', cost.steel) +
+            row('River / M-sand', qty.sand, 'cft', cost.sand) +
+            row('20mm aggregate', qty.aggregate, 'cft', cost.aggregate) +
+            row('Bricks (4.5" walls)', qty.bricks, 'no.s', cost.bricks) +
+            '<div><span class="lbl">Per sq ft (materials only)</span><span class="val">' + ARQ_TOOLS.fmtINR(total / a) + '</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">Indicative quantities only. Real BOQs need a structural drawing; these numbers assume standard M20/M25 RCC residential. Rates editable in tools-shared.js → ARQ_TOOLS.MATERIAL.</p>';
+      }
+      ARQ_TOOLS.bindRangeNumber(root, '#mat-area-slider', '#mat-area', calc);
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

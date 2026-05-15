@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Lighting / Lumens Calculator — studio arq</title>
+  <meta name="description" content="How much light does each room need? Calculate lumens by room size and use, then convert to LED wattage. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/lighting.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/interiors/0018.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 11 · Lighting</span>
+        <h1>Lumens &amp; <span class="gradient-text">lighting calculator.</span></h1>
+        <p class="lead" style="max-width:640px;">How bright should a room actually be? Total lumens × room use → number of LED downlights you need. The single most common mistake in Indian homes is under-lighting living spaces.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="lt-use">Room use</label>
+              <select id="lt-use">
+                <option value="living"  data-lux="200">Living room (200 lux)</option>
+                <option value="dining"  data-lux="200">Dining (200 lux)</option>
+                <option value="bedroom" data-lux="150" selected>Bedroom (150 lux)</option>
+                <option value="kitchen" data-lux="350">Kitchen (350 lux task)</option>
+                <option value="bath"    data-lux="200">Bathroom (200 lux)</option>
+                <option value="study"   data-lux="400">Study / Office (400 lux)</option>
+                <option value="corridor"data-lux="80" >Corridor / Stair (80 lux)</option>
+                <option value="retail"  data-lux="700">Retail / Commercial (700 lux)</option>
+              </select>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="lt-l">Room length (ft)</label>
+                <input id="lt-l" type="number" min="3" max="60" step="0.5" value="12" />
+              </div>
+              <div class="field">
+                <label for="lt-w">Room width (ft)</label>
+                <input id="lt-w" type="number" min="3" max="60" step="0.5" value="12" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="lt-eff">LED efficacy (lm/W)</label>
+              <select id="lt-eff">
+                <option value="80">Basic LED · 80 lm/W</option>
+                <option value="100" selected>Standard LED · 100 lm/W</option>
+                <option value="130">Premium LED · 130 lm/W</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="lt-fix">Fixture output (lumens each)</label>
+              <select id="lt-fix">
+                <option value="400">Small downlight · 400 lm</option>
+                <option value="800" selected>Standard downlight · 800 lm</option>
+                <option value="1200">Large COB · 1200 lm</option>
+                <option value="2000">Panel light · 2000 lm</option>
+              </select>
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var use = document.getElementById('lt-use');
+      var l = document.getElementById('lt-l');
+      var w = document.getElementById('lt-w');
+      var eff = document.getElementById('lt-eff');
+      var fix = document.getElementById('lt-fix');
+      var out = root.querySelector('[data-tool-output]');
+
+      function calc() {
+        var L = ARQ_TOOLS.toNum(l.value, 0), W = ARQ_TOOLS.toNum(w.value, 0);
+        var luxNeeded = parseInt(use.options[use.selectedIndex].dataset.lux, 10);
+        var efficacy = ARQ_TOOLS.toNum(eff.value, 100);
+        var fixLm = ARQ_TOOLS.toNum(fix.value, 800);
+        if (!L || !W) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter room dimensions.</div>';
+          return;
+        }
+        var areaSqM = (L * W) * 0.092903;
+        var totalLumens = areaSqM * luxNeeded;
+        var watts = totalLumens / efficacy;
+        var fixtures = Math.max(1, Math.ceil(totalLumens / fixLm));
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Total light needed</span><span class="val">' + Math.round(totalLumens).toLocaleString('en-IN') + ' lumens</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Room size</span><span class="val">' + L + ' × ' + W + ' ft · ' + areaSqM.toFixed(1) + ' m²</span></div>' +
+            '<div><span class="lbl">Target illuminance</span><span class="val">' + luxNeeded + ' lux</span></div>' +
+            '<div><span class="lbl">Fixtures (qty)</span><span class="val">' + fixtures + ' × ' + fixLm + ' lm</span></div>' +
+            '<div><span class="lbl">Total LED wattage</span><span class="val">' + Math.round(watts) + ' W</span></div>' +
+            '<div><span class="lbl">Old incandescent equiv.</span><span class="val">~' + Math.round(watts * 7) + ' W</span></div>' +
+            '<div><span class="lbl">Cost @ ₹6/kWh, 5h/day</span><span class="val">' + ARQ_TOOLS.fmtINR((watts/1000) * 5 * 365 * 6) + '/yr</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">Layer ambient + task + accent lighting. Kitchens and studies need separate task lighting under cabinets / over desks regardless of the ambient figure here.</p>';
+      }
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Project Timeline Visualiser — studio arq</title>
+  <meta name="description" content="Visualise a Gantt-style timeline for your construction project, broken down into design, drawings, build and hand-over phases. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/timeline.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+  <style>
+    .gantt {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+      margin-top: var(--space-5);
+    }
+    .gantt-row {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: var(--space-4);
+      align-items: center;
+    }
+    @media (max-width: 700px) { .gantt-row { grid-template-columns: 1fr; gap: 8px; } }
+    .gantt-label { font-size: var(--step--1); color: rgba(255,255,255,0.85); }
+    .gantt-label .sub { display: block; font-size: var(--step--2); color: rgba(255,255,255,0.45); margin-top: 2px; letter-spacing: 0.06em; text-transform: uppercase; }
+    .gantt-track {
+      position: relative;
+      height: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .gantt-bar {
+      position: absolute;
+      top: 0; bottom: 0;
+      background: var(--grad-brand);
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(58,175,228,0.3);
+    }
+    .gantt-bar.is-build { background: linear-gradient(90deg, var(--green), var(--aqua)); }
+    .gantt-bar.is-design { background: linear-gradient(90deg, var(--aqua-bright), var(--aqua)); }
+    .gantt-bar.is-handover { background: linear-gradient(90deg, var(--aqua), var(--green-bright)); }
+    .gantt-axis {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: var(--space-4);
+      margin-top: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: var(--step--2);
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.4);
+    }
+    .gantt-axis-marks { display: grid; }
+    .gantt-axis-marks-row { display: flex; justify-content: space-between; }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/nh44-restaurant/0076.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 13 · Timeline</span>
+        <h1>Project timeline <span class="gradient-text">visualiser.</span></h1>
+        <p class="lead" style="max-width:640px;">A realistic Gantt-style view of how long the design → build → hand-over journey takes for your project type. Helps you plan your move-in date.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="tm-type">Project type</label>
+              <select id="tm-type">
+                <option value="residential" selected>Private residence (G+1 / G+2)</option>
+                <option value="apartment">Apartment block</option>
+                <option value="commercial">Commercial / Retail</option>
+                <option value="hospitality">Hospitality / F&amp;B</option>
+                <option value="interior">Interior fit-out only</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="tm-area">Built-up area (sq ft)</label>
+              <div class="range-row">
+                <input id="tm-area-slider" type="range" min="500" max="20000" step="100" value="2400" />
+                <input id="tm-area" type="number" min="100" max="200000" step="50" value="2400" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="tm-start">Project kick-off month</label>
+              <input id="tm-start" type="month" />
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite" style="min-height: 360px;"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var type = document.getElementById('tm-type');
+      var area = document.getElementById('tm-area');
+      var start = document.getElementById('tm-start');
+      var out = root.querySelector('[data-tool-output]');
+
+      // Default kick-off = current month
+      var today = new Date();
+      start.value = today.toISOString().slice(0,7);
+
+      // Phase definitions: [name, sub, durationPer1000sqft (months), cssClass]
+      var PHASES = {
+        residential: [
+          ['Brief & site analysis','design',  0.4, 'is-design'],
+          ['Concept & 3D',          'design',  0.6, 'is-design'],
+          ['Working drawings',      'design',  0.8, 'is-design'],
+          ['Approvals',             'design',  0.5, 'is-design'],
+          ['Construction',          'build',  1.6, 'is-build'],
+          ['Interior fit-out',      'build',  0.7, 'is-build'],
+          ['Snag list & hand-over', 'handover',0.3, 'is-handover']
+        ],
+        apartment: [
+          ['Concept & feasibility','design',  0.4, 'is-design'],
+          ['Schematic + 3D',        'design',  0.5, 'is-design'],
+          ['Working drawings',      'design',  0.7, 'is-design'],
+          ['Approvals',             'design',  0.6, 'is-design'],
+          ['Foundation',            'build',  0.6, 'is-build'],
+          ['Superstructure',        'build',  1.4, 'is-build'],
+          ['Finishing',             'build',  0.9, 'is-build'],
+          ['Hand-over',             'handover',0.3, 'is-handover']
+        ],
+        commercial: [
+          ['Brief & visioning',     'design',  0.3, 'is-design'],
+          ['Schematic + 3D',        'design',  0.5, 'is-design'],
+          ['Working drawings',      'design',  0.7, 'is-design'],
+          ['Approvals',             'design',  0.5, 'is-design'],
+          ['Construction',          'build',  1.4, 'is-build'],
+          ['Fit-out + branding',    'build',  0.5, 'is-build'],
+          ['Hand-over',             'handover',0.2, 'is-handover']
+        ],
+        hospitality: [
+          ['Concept & 3D',          'design',  0.5, 'is-design'],
+          ['Working drawings',      'design',  0.6, 'is-design'],
+          ['Approvals & licences',  'design',  0.8, 'is-design'],
+          ['Construction',          'build',  1.3, 'is-build'],
+          ['Fit-out & FFE',         'build',  0.9, 'is-build'],
+          ['Branding & launch',     'handover',0.4, 'is-handover']
+        ],
+        interior: [
+          ['Brief & moodboard',     'design',  0.2, 'is-design'],
+          ['3D walkthroughs',       'design',  0.3, 'is-design'],
+          ['Joinery drawings',      'design',  0.3, 'is-design'],
+          ['Site work + joinery',   'build',  0.5, 'is-build'],
+          ['Finishing & styling',   'build',  0.3, 'is-build'],
+          ['Hand-over photoshoot',  'handover',0.1, 'is-handover']
+        ]
+      };
+
+      function pad(n) { return n < 10 ? '0' + n : '' + n; }
+      function addMonths(d, m) {
+        var n = new Date(d.getFullYear(), d.getMonth() + m, 1);
+        return n;
+      }
+      function fmtMonth(d) {
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return months[d.getMonth()] + ' ' + d.getFullYear();
+      }
+
+      function calc() {
+        var phases = PHASES[type.value] || PHASES.residential;
+        var areaSqft = ARQ_TOOLS.toNum(area.value, 0);
+        if (!areaSqft) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter project area to draw timeline.</div>';
+          return;
+        }
+        var startDate = new Date(start.value + '-01T00:00:00');
+        if (isNaN(startDate.getTime())) startDate = new Date();
+
+        var rows = [];
+        var offset = 0;
+        var unit = areaSqft / 1000;
+        phases.forEach(function (p) {
+          var dur = Math.max(0.15, p[2] * Math.max(0.8, unit));
+          rows.push({ name: p[0], sub: p[1], cls: p[3], offset: offset, duration: dur });
+          offset += dur;
+        });
+        var total = offset;
+        var totalMonths = Math.ceil(total);
+        var endDate = addMonths(startDate, totalMonths);
+
+        var html =
+          '<div class="tool-out__hero"><span class="lbl">Total duration</span><span class="val">' + total.toFixed(1) + ' months</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Kick-off</span><span class="val">' + fmtMonth(startDate) + '</span></div>' +
+            '<div><span class="lbl">Hand-over (est.)</span><span class="val">' + fmtMonth(endDate) + '</span></div>' +
+            '<div><span class="lbl">Project type</span><span class="val" style="font-size:var(--step-0);">' + type.options[type.selectedIndex].text + '</span></div>' +
+            '<div><span class="lbl">Built-up area</span><span class="val">' + Math.round(areaSqft).toLocaleString('en-IN') + ' sqft</span></div>' +
+          '</div>' +
+          '<div class="gantt">';
+        rows.forEach(function (r) {
+          var pct = (r.offset / total) * 100;
+          var width = (r.duration / total) * 100;
+          html += '<div class="gantt-row">' +
+            '<div class="gantt-label">' + r.name + '<span class="sub">' + r.sub + ' · ' + r.duration.toFixed(1) + ' mo</span></div>' +
+            '<div class="gantt-track"><div class="gantt-bar ' + r.cls + '" style="left:' + pct + '%; width:' + width + '%;"></div></div>' +
+          '</div>';
+        });
+        html += '</div>' +
+                '<div class="gantt-axis"><div></div><div class="gantt-axis-marks-row"><span>Month 0</span><span>' + Math.ceil(total/4) + '</span><span>' + Math.ceil(total/2) + '</span><span>' + Math.ceil(total*3/4) + '</span><span>Month ' + totalMonths + '</span></div></div>' +
+                '<p class="tool-out__note">Some phases run in parallel on real projects (working drawings + approvals, fit-out + landscape). This linear view is conservative.</p>';
+        out.innerHTML = html;
+      }
+      ARQ_TOOLS.bindRangeNumber(root, '#tm-area-slider', '#tm-area', calc);
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

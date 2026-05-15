@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Paint Quantity Calculator — studio arq</title>
+  <meta name="description" content="Calculate how much paint you need (in litres) for a room or whole house — by surface type, coats and dimensions. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/paint.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/interiors/0039.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 08 · Paint</span>
+        <h1>Paint <span class="gradient-text">quantity calculator.</span></h1>
+        <p class="lead" style="max-width:640px;">Enter your room dimensions or just the total surface area. Pick interior or exterior, smooth or textured, and how many coats. The calculator handles primer + topcoat and adds 8% wastage.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="pt-mode">Input mode</label>
+              <select id="pt-mode">
+                <option value="area" selected>Already know surface area</option>
+                <option value="room">Calculate from room dimensions (LxWxH)</option>
+              </select>
+            </div>
+            <div data-mode="area">
+              <div class="field">
+                <label for="pt-area">Surface area to paint (sq ft)</label>
+                <input id="pt-area" type="number" min="20" max="50000" step="10" value="600" />
+              </div>
+            </div>
+            <div data-mode="room" style="display:none;">
+              <div class="row three">
+                <div class="field">
+                  <label for="pt-l">Length (ft)</label>
+                  <input id="pt-l" type="number" min="3" max="100" step="0.5" value="12" />
+                </div>
+                <div class="field">
+                  <label for="pt-w">Width (ft)</label>
+                  <input id="pt-w" type="number" min="3" max="100" step="0.5" value="10" />
+                </div>
+                <div class="field">
+                  <label for="pt-h">Height (ft)</label>
+                  <input id="pt-h" type="number" min="6" max="20" step="0.5" value="10" />
+                </div>
+              </div>
+              <div class="row two" style="margin-top:var(--space-3);">
+                <div class="field">
+                  <label for="pt-incCeiling">Include ceiling?</label>
+                  <select id="pt-incCeiling"><option value="1">Yes</option><option value="0">No</option></select>
+                </div>
+                <div class="field">
+                  <label for="pt-deduct">Deduct doors/windows (sqft)</label>
+                  <input id="pt-deduct" type="number" min="0" max="500" step="5" value="40" />
+                </div>
+              </div>
+            </div>
+            <div class="row two">
+              <div class="field">
+                <label for="pt-surface">Surface</label>
+                <select id="pt-surface">
+                  <option value="smooth" selected>Smooth interior wall</option>
+                  <option value="rough">Rough / textured</option>
+                  <option value="ceiling">Ceiling (white)</option>
+                  <option value="exterior">Exterior weatherproof</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="pt-coats">Coats</label>
+                <select id="pt-coats">
+                  <option value="2" selected>2 coats (standard)</option>
+                  <option value="3">3 coats (recommended)</option>
+                  <option value="1">1 coat (refresh)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var mode = document.getElementById('pt-mode');
+      var area = document.getElementById('pt-area');
+      var l = document.getElementById('pt-l');
+      var w = document.getElementById('pt-w');
+      var h = document.getElementById('pt-h');
+      var incC = document.getElementById('pt-incCeiling');
+      var ded = document.getElementById('pt-deduct');
+      var surf = document.getElementById('pt-surface');
+      var coats = document.getElementById('pt-coats');
+      var out = root.querySelector('[data-tool-output]');
+      var P = ARQ_TOOLS.PAINT;
+
+      function showMode() {
+        document.querySelector('[data-mode=area]').style.display = (mode.value === 'area') ? '' : 'none';
+        document.querySelector('[data-mode=room]').style.display = (mode.value === 'room') ? '' : 'none';
+      }
+      mode.addEventListener('change', showMode);
+
+      function calc() {
+        var sqft = 0;
+        if (mode.value === 'area') sqft = ARQ_TOOLS.toNum(area.value, 0);
+        else {
+          var L = ARQ_TOOLS.toNum(l.value, 0), W = ARQ_TOOLS.toNum(w.value, 0), H = ARQ_TOOLS.toNum(h.value, 0);
+          if (L && W && H) {
+            sqft = 2 * (L + W) * H;
+            if (incC.value === '1') sqft += L * W;
+            sqft -= ARQ_TOOLS.toNum(ded.value, 0);
+            sqft = Math.max(0, sqft);
+          }
+        }
+        var cov = P.coverage[surf.value] || 140;
+        var c = ARQ_TOOLS.toInt(coats.value, 2);
+        if (!sqft) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter the area or room dimensions.</div>';
+          return;
+        }
+        var litres = (sqft / cov) * c * 1.08;
+        var primerLitres = (sqft / (cov * 1.5)) * 1.05; // primer 1 coat, slightly more coverage
+        var cost = (litres + primerLitres) * P.rate;
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Paint needed</span><span class="val">' + litres.toFixed(1) + ' L topcoat + ' + primerLitres.toFixed(1) + ' L primer</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Surface area</span><span class="val">' + Math.round(sqft).toLocaleString('en-IN') + ' sq ft</span></div>' +
+            '<div><span class="lbl">Coats</span><span class="val">' + c + ' × topcoat + 1 × primer</span></div>' +
+            '<div><span class="lbl">Coverage</span><span class="val">' + cov + ' sqft / L</span></div>' +
+            '<div><span class="lbl">Indicative cost</span><span class="val">' + ARQ_TOOLS.fmtINR(cost) + '</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">Includes 8% wastage. Use 3 coats for deep colours, dark-over-light or premium emulsions. Cost based on ₹' + P.rate + '/L average — editable in tools-shared.js.</p>';
+      }
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

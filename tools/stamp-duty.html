@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Stamp Duty & Registration Calculator — Tamil Nadu · studio arq</title>
+  <meta name="description" content="Calculate Tamil Nadu stamp duty (7%) and registration charges (4%) on your property sale value. Free tool by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/stamp-duty.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="index.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/bloom-apartments/0078.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · 06 · Stamp duty</span>
+        <h1>Stamp duty &amp; <span class="gradient-text">registration.</span></h1>
+        <p class="lead" style="max-width:640px;">In Tamil Nadu, the registration of any property transfer attracts 7% stamp duty and 4% registration fee on the higher of the sale value or guideline value. This tool gives you both.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="tool-shell" data-tool-root>
+          <div class="tool-shell__form">
+            <div class="field">
+              <label for="sd-value">Sale / guideline value (₹)</label>
+              <div class="range-row">
+                <input id="sd-value-slider" type="range" min="500000" max="100000000" step="100000" value="10000000" />
+                <input id="sd-value" type="number" min="100000" max="1000000000" step="50000" value="10000000" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="sd-type">Transaction type</label>
+              <select id="sd-type">
+                <option value="sale" selected>Sale deed (7% + 4%)</option>
+                <option value="gift-rel">Gift to a relative (1% + 1%)</option>
+                <option value="gift-other">Gift to a non-relative (7% + 4%)</option>
+                <option value="partition">Partition deed (1% capped at ₹4000 + 1% capped at ₹4000)</option>
+                <option value="settlement">Settlement deed in family (1% + 1%)</option>
+                <option value="lease-99">Lease &gt; 30 years (7% + 4%)</option>
+              </select>
+            </div>
+          </div>
+          <div class="tool-out" data-tool-output aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="tools-shared.js" defer></script>
+  <script defer>
+    ARQ_TOOLS.ready(function () {
+      var root = document.querySelector('[data-tool-root]');
+      var v = document.getElementById('sd-value');
+      var t = document.getElementById('sd-type');
+      var out = root.querySelector('[data-tool-output]');
+
+      var TYPES = {
+        'sale':       { st: 7, rg: 4, capSt: null, capRg: null, label: 'Sale deed' },
+        'gift-rel':   { st: 1, rg: 1, capSt: null, capRg: null, label: 'Gift to a relative' },
+        'gift-other': { st: 7, rg: 4, capSt: null, capRg: null, label: 'Gift to a non-relative' },
+        'partition':  { st: 1, rg: 1, capSt: 4000, capRg: 4000, label: 'Partition deed (capped)' },
+        'settlement': { st: 1, rg: 1, capSt: null, capRg: null, label: 'Family settlement deed' },
+        'lease-99':   { st: 7, rg: 4, capSt: null, capRg: null, label: 'Lease > 30 years' }
+      };
+
+      function calc() {
+        var val = ARQ_TOOLS.toNum(v.value, 0);
+        var rule = TYPES[t.value];
+        if (!val || val < 100000) {
+          out.innerHTML = '<div class="est-out__empty" style="flex:1;display:grid;place-items:center;text-align:center;color:rgba(255,255,255,0.5);font-style:italic;">Enter sale/guideline value to calculate.</div>';
+          return;
+        }
+        var st = val * rule.st / 100; if (rule.capSt && st > rule.capSt) st = rule.capSt;
+        var rg = val * rule.rg / 100; if (rule.capRg && rg > rule.capRg) rg = rule.capRg;
+        var total = st + rg;
+        var allIn = val + total;
+        out.innerHTML =
+          '<div class="tool-out__hero"><span class="lbl">Total stamp duty + registration</span><span class="val">' + ARQ_TOOLS.fmtINR(total) + '</span></div>' +
+          '<div class="tool-out__rows">' +
+            '<div><span class="lbl">Stamp duty (' + rule.st + '%)</span><span class="val">' + ARQ_TOOLS.fmtINR(st) + '</span></div>' +
+            '<div><span class="lbl">Registration (' + rule.rg + '%)</span><span class="val">' + ARQ_TOOLS.fmtINR(rg) + '</span></div>' +
+            '<div><span class="lbl">Property value</span><span class="val">' + ARQ_TOOLS.fmtINR(val) + '</span></div>' +
+            '<div><span class="lbl">All-in cost</span><span class="val">' + ARQ_TOOLS.fmtINR(allIn) + '</span></div>' +
+            '<div><span class="lbl">Transaction</span><span class="val" style="font-size:var(--step-0);">' + rule.label + '</span></div>' +
+            '<div><span class="lbl">Effective rate</span><span class="val">' + ((total/val)*100).toFixed(2) + '%</span></div>' +
+          '</div>' +
+          '<p class="tool-out__note">Tamil Nadu uses the higher of the registered sale value or the government guideline value. Some banks finance up to 90% of property + 100% of stamp duty separately.</p>';
+      }
+      ARQ_TOOLS.bindRangeNumber(root, '#sd-value-slider', '#sd-value', calc);
+      ARQ_TOOLS.onAnyInput(root, calc);
+      calc();
+    });
+  </script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>
