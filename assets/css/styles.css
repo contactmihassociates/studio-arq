@@ -213,26 +213,45 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   letter-spacing: -0.01em;
 }
 .brand-mark {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  background: var(--grad-brand);
-  color: var(--navy-900);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.25rem;
+  width: 40px;
+  height: 40px;
+  display: block;
+  flex-shrink: 0;
+  /* Square mark — wraps the SVG logo glyph */
 }
-.brand-text { display: inline-flex; align-items: baseline; gap: 0.35rem; }
-.brand-text .arq { letter-spacing: -0.02em; }
+.brand-mark img,
+.brand-mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.brand-text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+.brand-text .arq {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  color: var(--white);
+}
+.brand-text .arq em {
+  font-style: normal;
+  background: var(--grad-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .brand-text .studio {
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.28em;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.36em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.55);
 }
 
 .nav {
@@ -1882,16 +1901,12 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   transition: opacity 400ms var(--ease-out), visibility 0s 400ms;
 }
 .splash__mark {
-  width: 88px; height: 88px;
-  border-radius: 22px;
-  background: var(--grad-brand);
-  color: var(--navy-900);
+  width: 96px; height: 96px;
   display: grid; place-items: center;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 2.6rem;
   animation: splashIn 1.2s var(--ease-out) both;
 }
+.splash__mark img,
+.splash__mark svg { width: 100%; height: 100%; display: block; }
 .splash__text {
   position: absolute;
   bottom: 14%;
