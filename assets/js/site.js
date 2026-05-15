@@ -265,6 +265,51 @@
     }
   })();
 
+  /* ----- universal head meta: PWA + default OG --------------- */
+  (function injectHeadMeta() {
+    function meta(name, content, isProp) {
+      var key = isProp ? "property" : "name";
+      if (document.querySelector('meta[' + key + '="' + name + '"]')) return;
+      var m = document.createElement("meta");
+      m.setAttribute(key, name);
+      m.setAttribute("content", content);
+      document.head.appendChild(m);
+    }
+    function linkOnce(rel, href, attrs) {
+      var existing = document.querySelector('link[rel="' + rel + '"]');
+      if (existing) return;
+      var l = document.createElement("link");
+      l.setAttribute("rel", rel);
+      l.setAttribute("href", href);
+      if (attrs) Object.keys(attrs).forEach(function (k) { l.setAttribute(k, attrs[k]); });
+      document.head.appendChild(l);
+    }
+    // PWA / mobile-app metadata — only inject if missing
+    linkOnce("manifest", "/manifest.webmanifest");
+    meta("apple-mobile-web-app-capable", "yes");
+    meta("apple-mobile-web-app-status-bar-style", "black-translucent");
+    meta("apple-mobile-web-app-title", "studio arq");
+    meta("application-name", "studio arq");
+    meta("msapplication-TileColor", "#0B2545");
+    meta("color-scheme", "dark");
+
+    // Default OG / Twitter — set only if not already present.
+    // (Project pages override via injectProjectSchema; tool pages via injectToolSchema.)
+    var defaultImg = window.location.origin + "/assets/img/projects/akp-illam/0081.jpg";
+    var defaultTitle = document.title || "studio arq";
+    var defaultDesc  = (document.querySelector('meta[name="description"]') || {}).content || "studio arq — architecture, interiors and 3D in Chennai.";
+    meta("og:title",       defaultTitle, true);
+    meta("og:description", defaultDesc,  true);
+    meta("og:image",       defaultImg,   true);
+    meta("og:type",        "website",    true);
+    meta("og:url",         window.location.origin + window.location.pathname, true);
+    meta("og:locale",      "en_IN",      true);
+    meta("twitter:card",        "summary_large_image");
+    meta("twitter:title",       defaultTitle);
+    meta("twitter:description", defaultDesc);
+    meta("twitter:image",       defaultImg);
+  })();
+
   /* ----- image perf: lazy + decode async on non-hero imgs ----- */
   function tagImg(img) {
     if (img.closest(".hero__bg") || img.closest(".project-hero .hero__bg") || img.closest(".brand-mark")) return;
