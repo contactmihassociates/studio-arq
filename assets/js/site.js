@@ -772,17 +772,22 @@
   const navToggle = $("#navToggle");
   const nav       = $("#primaryNav");
   if (navToggle && nav) {
+    const closeNav = function () {
+      nav.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+    };
     navToggle.addEventListener("click", () => {
       const open = nav.classList.toggle("is-open");
       navToggle.setAttribute("aria-expanded", open ? "true" : "false");
       document.body.style.overflow = open ? "hidden" : "";
     });
     nav.addEventListener("click", (e) => {
-      if (e.target.tagName === "A") {
-        nav.classList.remove("is-open");
-        navToggle.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      }
+      if (e.target.tagName === "A") closeNav();
+    });
+    // Esc closes the open nav
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) closeNav();
     });
   }
 
@@ -972,6 +977,33 @@
       if (e.key === "ArrowLeft")  step(-1);
       if (e.key === "ArrowRight") step(1);
     });
+
+    // ----- touch / swipe gestures -----------------------------
+    let tStartX = 0, tStartY = 0, tStartT = 0;
+    const SWIPE_MIN = 50;   // px
+    const SWIPE_MAX_TIME = 700;   // ms
+    lightbox.addEventListener("touchstart", (e) => {
+      if (!lightbox.classList.contains("is-open") || !e.touches[0]) return;
+      tStartX = e.touches[0].clientX;
+      tStartY = e.touches[0].clientY;
+      tStartT = Date.now();
+    }, { passive: true });
+    lightbox.addEventListener("touchend", (e) => {
+      if (!lightbox.classList.contains("is-open")) return;
+      const touch = e.changedTouches[0];
+      if (!touch) return;
+      const dx = touch.clientX - tStartX;
+      const dy = touch.clientY - tStartY;
+      const dt = Date.now() - tStartT;
+      if (dt > SWIPE_MAX_TIME) return;
+      // Mostly horizontal?
+      if (Math.abs(dx) > SWIPE_MIN && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        step(dx < 0 ? 1 : -1);
+      // Mostly vertical down? close
+      } else if (dy > SWIPE_MIN && Math.abs(dy) > Math.abs(dx) * 1.5) {
+        close();
+      }
+    }, { passive: true });
   }
 
   /* ----- live studio status chip ----------------------------- */
