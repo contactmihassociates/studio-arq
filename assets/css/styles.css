@@ -1970,6 +1970,44 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   margin-bottom: var(--space-4);
   transition: all 200ms var(--ease-out);
 }
+
+/* "Led by" face chip — face avatar + name pill */
+.led-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px 6px 6px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-size: var(--step--2);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  transition: all 200ms var(--ease-out);
+  text-decoration: none;
+}
+.led-by:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: var(--aqua-bright);
+  color: var(--white);
+}
+.led-by__avatar {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: block;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--aqua) inset;
+  background: var(--navy-700);
+}
+.led-by__avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.led-by .label { color: rgba(255,255,255,0.5); font-weight: 400; }
+.led-by .name  { color: var(--white); font-weight: 500; letter-spacing: 0.08em; }
 .shipped:hover { background: rgba(255,255,255,0.06); border-color: var(--aqua); }
 .shipped .dot {
   display: inline-block;
