@@ -89,6 +89,13 @@
             <span class="wiz__step-dot"></span>
             <span class="wiz__step-dot"></span>
           </div>
+          <div class="wiz__step-names" aria-hidden="true">
+            <span class="is-active">Scope</span>
+            <span>Project type</span>
+            <span>Size &amp; location</span>
+            <span>Contact</span>
+            <span>Review</span>
+          </div>
 
           <!-- STEP 1: Scope -->
           <div class="wiz__step is-active" data-step="1">
@@ -232,7 +239,15 @@
       var state = { scope: '', type: '', area: '', location: '', budget: '', name: '', email: '', phone: '', notes: '' };
       var stepN = 1, MAX = 6;
 
-      function setStep(n) {
+      var STEP_TITLES = {
+        1: 'Step 1 · Scope',
+        2: 'Step 2 · Project type',
+        3: 'Step 3 · Size & location',
+        4: 'Step 4 · Contact',
+        5: 'Step 5 · Review',
+        6: 'Sent — thanks'
+      };
+      function setStep(n, skipHash) {
         stepN = Math.max(1, Math.min(MAX, n));
         wiz.querySelectorAll('.wiz__step').forEach(function (s) {
           s.classList.toggle('is-active', parseInt(s.dataset.step, 10) === stepN);
@@ -240,9 +255,29 @@
         wiz.querySelectorAll('.wiz__step-dot').forEach(function (d, i) {
           d.classList.toggle('is-active', i < stepN);
         });
+        wiz.querySelectorAll('.wiz__step-names > span').forEach(function (sp, i) {
+          sp.classList.remove('is-active', 'is-done');
+          if (i + 1 < stepN) sp.classList.add('is-done');
+          else if (i + 1 === stepN) sp.classList.add('is-active');
+        });
+        // Reflect in URL hash so back/forward + sharing work
+        if (!skipHash) {
+          try { history.replaceState(null, '', '#step-' + stepN); } catch (e) {}
+        }
+        // Update the page title so the browser tab + back-button list make sense
+        document.title = (STEP_TITLES[stepN] || 'Get a quote') + ' — studio arq';
         if (stepN === 5) renderSummary();
         window.scrollTo({ top: wiz.offsetTop - 80, behavior: 'smooth' });
       }
+
+      // Deep-link: if URL has #step-N, jump there on load
+      (function deepLink() {
+        var m = (location.hash || '').match(/^#step-(\d)$/);
+        if (m) {
+          var n = parseInt(m[1], 10);
+          if (n >= 1 && n <= MAX) setTimeout(function () { setStep(n, true); }, 50);
+        }
+      })();
 
       function validate() {
         var ok = true;

@@ -2048,7 +2048,7 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 .wiz__steps {
   display: flex;
   gap: var(--space-2);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-5);
 }
 .wiz__step-dot {
   flex: 1;
@@ -2058,6 +2058,23 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   transition: background 300ms var(--ease-out);
 }
 .wiz__step-dot.is-active { background: var(--grad-brand); }
+.wiz__step-names {
+  display: none;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  font-size: var(--step--2);
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+@media (min-width: 700px) { .wiz__step-names { display: flex; } }
+.wiz__step-names > span {
+  flex: 1;
+  text-align: center;
+  transition: color 300ms var(--ease-out);
+}
+.wiz__step-names > span.is-active { color: var(--aqua-bright); }
+.wiz__step-names > span.is-done   { color: rgba(255,255,255,0.7); }
 .wiz__step-label {
   font-family: var(--font-mono);
   font-size: var(--step--2);
