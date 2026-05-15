@@ -703,6 +703,85 @@
     });
   }
 
+  /* ----- live studio status chip ----------------------------- */
+  (function injectStudioStatus() {
+    const nav = document.querySelector(".nav");
+    if (!nav || nav.querySelector(".studio-status")) return;
+
+    // Get the current hour/day in Asia/Kolkata regardless of visitor's TZ
+    function nowIST() {
+      const parts = new Intl.DateTimeFormat("en-IN", {
+        timeZone: "Asia/Kolkata",
+        weekday: "short",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false
+      }).formatToParts(new Date());
+      const map = {};
+      parts.forEach(function (p) { map[p.type] = p.value; });
+      const days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+      return {
+        day: days[map.weekday],
+        hour: parseInt(map.hour, 10),
+        minute: parseInt(map.minute, 10)
+      };
+    }
+
+    // Mon–Sat 10:00 – 19:00 IST
+    function computeStatus() {
+      const t = nowIST();
+      const totalMin = t.hour * 60 + t.minute;
+      const openMin  = 10 * 60;
+      const closeMin = 19 * 60;
+      const isWeekday = t.day >= 1 && t.day <= 6;
+      const isOpen = isWeekday && totalMin >= openMin && totalMin < closeMin;
+      let label, verbose;
+      if (isOpen) {
+        const minsLeft = closeMin - totalMin;
+        label = "Open now";
+        if (minsLeft < 60) {
+          verbose = "Open · closes in " + minsLeft + " min";
+        } else {
+          verbose = "Open · until 7 PM IST";
+        }
+      } else {
+        label = "Closed";
+        const nextOpen = isWeekday && totalMin < openMin
+          ? "today 10 AM"
+          : (t.day === 6 && totalMin >= closeMin) || t.day === 0
+              ? "Mon 10 AM"
+              : "tomorrow 10 AM";
+        verbose = "Closed · opens " + nextOpen + " IST";
+      }
+      return { isOpen: isOpen, label: label, verbose: verbose };
+    }
+
+    function render() {
+      const s = computeStatus();
+      let chip = nav.querySelector(".studio-status");
+      if (!chip) {
+        chip = document.createElement("a");
+        chip.className = "studio-status";
+        chip.href = "/contact.html";
+        chip.setAttribute("aria-label", "Studio hours and contact");
+        chip.innerHTML = '<span class="studio-status__dot" aria-hidden="true"></span><span class="studio-status__text"></span>';
+        nav.appendChild(chip);
+      }
+      chip.classList.toggle("is-closed", !s.isOpen);
+      chip.title = s.verbose;
+      chip.querySelector(".studio-status__text").textContent = s.label;
+
+      // Also populate verbose-status slots elsewhere (e.g. footer/contact)
+      document.querySelectorAll("[data-studio-status]").forEach(function (el) {
+        el.textContent = s.verbose;
+        el.classList.toggle("is-closed", !s.isOpen);
+      });
+    }
+    render();
+    // Re-render every minute so the chip stays honest
+    setInterval(render, 60000);
+  })();
+
   /* ----- nav 'Get a quote' CTA ------------------------------- */
   (function injectNavCta() {
     const nav = document.querySelector(".nav");
