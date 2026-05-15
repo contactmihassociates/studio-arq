@@ -3,6 +3,26 @@
    Architectural identity, palette pulled from the logo
    ===================================================== */
 
+/* Global native-dropdown styling
+   The browser-rendered <option> popup ignores most of the parent
+   <select>'s CSS — explicitly set a dark background + white text
+   here so options stay legible on our navy theme.
+   Works on Chromium + Firefox. Safari has limited support and
+   may still use the OS theme, but never with invisible text. */
+select option,
+select optgroup {
+  background-color: #0B2545;
+  color: #FFFFFF;
+}
+select option:checked,
+select option:hover {
+  background-color: #112E58;
+  color: #FFFFFF;
+}
+select option:disabled {
+  color: rgba(255,255,255,0.45);
+}
+
 :root {
   /* Brand palette (sampled from the logo) */
   --navy-900: #061A33;
