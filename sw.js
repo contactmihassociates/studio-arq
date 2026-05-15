@@ -4,7 +4,7 @@
    Bump CACHE_VERSION whenever you ship a major change so old
    caches are evicted on next visit.
    ============================================================= */
-const CACHE_VERSION = "v2-2026-05-15";
+const CACHE_VERSION = "v3-2026-05-15-tools";
 const CACHE_STATIC  = "arq-static-" + CACHE_VERSION;
 const CACHE_HTML    = "arq-html-"   + CACHE_VERSION;
 
