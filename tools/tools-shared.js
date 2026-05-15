@@ -1,5 +1,5 @@
-/* =============================================================
-   studio arq — tools-shared.js · v2
+﻿/* =============================================================
+   studio arqs — tools-shared.js · v2
    Common helpers + INR formatting + standard rate constants
    used across every tool page.
 

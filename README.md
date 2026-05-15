@@ -1,6 +1,6 @@
-# studio arqs — website
+﻿# studio arqss — website
 
-A boutique architectural-practice site for **studio arqs** (Chennai),
+A boutique architectural-practice site for **studio arqss** (Chennai),
 led by **Abdul Azeem** ([LinkedIn](https://in.linkedin.com/in/abd-al-azeem) ·
 [Instagram @studio_arqs](https://www.instagram.com/studio_arqs)).
 
@@ -52,7 +52,7 @@ the site went through 10 focused versions:
 
 | Version | Commit | What landed |
 |---|---|---|
-| v1 | `d9439a9` | Rebrand `Studio ARQ` → `studio arqs`; SVG logo mark replaces the text 'a'; splash uses the actual logo SVG; logo-sm.png raster generated |
+| v1 | `d9439a9` | Rebrand `Studio ARQS` → `studio arqss`; SVG logo mark replaces the text 'a'; splash uses the actual logo SVG; logo-sm.png raster generated |
 | v2 | `1022878` | Founder-page **Skills & toolchain** block — top skills, expertise list, software stack, credential IDs, all from the verified profile |
 | v3 | `9a9ffa8` | **Chennai ↔ Jeddah** career-arc section — animated SVG map + three location cards listing every role and year |
 | v4 | `c3e5c51` | Hero typography polish — new headline with `<em>` brand-gradient emphasis, founder credit in the lead paragraph, secondary CTA points to /founder.html |
@@ -62,7 +62,7 @@ the site went through 10 focused versions:
 | v8 | `edf48a1` | Footer **Brand kit** — downloadable logo files, 4-swatch palette, 3-font typography card |
 | v9 | `4eebba7` | `lang="en-IN"`, canonical URLs, apple-touch-icon, slide-in skip-to-content link, `prefers-reduced-motion` disables splash/marquee/cursor animations |
 | v10 | `34bef34` | Skip-link + `<main id="main">` consistent on every page; first README refresh |
-| — | `0bd1eed` | Native cursor restored; firm renamed `studio arqs` → **`studio arq`**; real `logo.jpg` wired into header |
+| — | `0bd1eed` | Native cursor restored; firm renamed `studio arqss` → **`studio arqs`**; real `logo.jpg` wired into header |
 | v11 | `f3943c5` | Founder portrait — `assets/img/brand/azeem.jpg` replaces 'AA' placeholder on founder.html + homepage |
 | v12 | `b8d2b5f` | Responsive portrait variants (400 / 800 / 1200) + face-crop variants (96 / 200 sq) + srcset everywhere |
 | v13 | `cacd244` | **'Led by Abdul Azeem'** face chip in the hero, next to 'Recently shipped' + 'Award-winning' |
@@ -79,7 +79,7 @@ the site went through 10 focused versions:
 All copy on the site is sourced from the LinkedIn profile of
 **Abdul Azeem . S . A**:
 
-- **Title:** Principal Architect at studio arqs (since Apr 2024;
+- **Title:** Principal Architect at studio arqss (since Apr 2024;
   Senior Architect Apr 2019 – Mar 2024, 5 yrs total tenure)
 - **Education:** B.Arch in Architecture & Interior Design,
   **MEASI Academy of Architecture**, 2006 – 2011
@@ -91,7 +91,7 @@ All copy on the site is sourced from the LinkedIn profile of
   - Chennai 2011 – 2012 — Junior Architect · KKR Architects
   - Jeddah 2013 — Designer · ALUMCO
   - Jeddah 2013 – 2019 — Architect · SAUDI ABV General Contractors (5y 7m)
-  - Chennai 2019 — now — studio arqs (Senior → Principal Architect)
+  - Chennai 2019 — now — studio arqss (Senior → Principal Architect)
 - **Skills:** Building Design · Project Management · AutoCAD · Shop
   Drawings · MS Office (top 5 of 31 listed)
 - **Tools:** AutoCAD · Revit · SketchUp · Twin Motion · MS Office

@@ -1,5 +1,5 @@
-/* =============================================================
-   STUDIO ARQ — site.js
+﻿/* =============================================================
+   STUDIO ARQS — site.js
    Header behavior, hero slideshow, reveal animations,
    project filter, lightbox, contact form, mobile nav.
    ============================================================= */
@@ -32,14 +32,14 @@
       }
       m.setAttribute("content", value);
     }
-    setMeta("og:title", proj.title + " — studio arq");
+    setMeta("og:title", proj.title + " — studio arqs");
     setMeta("og:description", proj.summary || "");
     setMeta("og:image", imgURL);
     setMeta("og:type", "article");
     setMeta("og:url", baseURL + window.location.pathname);
     setMeta("og:locale", "en_IN");
     setMeta("twitter:card", "summary_large_image", "name");
-    setMeta("twitter:title", proj.title + " — studio arq", "name");
+    setMeta("twitter:title", proj.title + " — studio arqs", "name");
     setMeta("twitter:description", proj.summary || "", "name");
     setMeta("twitter:image", imgURL, "name");
 
@@ -54,7 +54,7 @@
       "locationCreated": { "@type": "Place", "address": proj.location },
       "creator": {
         "@type": "Organization",
-        "name": "studio arq",
+        "name": "studio arqs",
         "founder": { "@type": "Person", "name": "Abdul Azeem", "jobTitle": "Principal Architect" }
       },
       "about": proj.sector
@@ -77,8 +77,8 @@
             "contentUrl": baseURL + "/assets/img/projects/" + proj.slug + "/" + f + ".jpg",
             "name": proj.title + " — render " + (i + 1),
             "description": proj.title + ", " + proj.sector + ", " + proj.location + ".",
-            "creditText": "studio arq",
-            "creator": { "@type": "Organization", "name": "studio arq" }
+            "creditText": "studio arqs",
+            "creator": { "@type": "Organization", "name": "studio arqs" }
           };
         })
       };
@@ -112,7 +112,7 @@
         const list = {
           "@context": "https://schema.org",
           "@type": "ItemList",
-          "name": "studio arq · architect's toolkit",
+          "name": "studio arqs · architect's toolkit",
           "itemListElement": items
         };
         const sList = document.createElement("script");
@@ -127,7 +127,7 @@
     const titleEl = document.querySelector("h1");
     const descEl  = document.querySelector('meta[name="description"]');
     const title   = (titleEl ? titleEl.textContent : document.title).trim().replace(/\s+/g, " ");
-    const desc    = (descEl ? descEl.getAttribute("content") : "Free calculator by studio arq.").trim();
+    const desc    = (descEl ? descEl.getAttribute("content") : "Free calculator by studio arqs.").trim();
     const fullURL = baseURL + path;
     const ogImg   = baseURL + "/assets/img/projects/akp-illam/0081.jpg";
 
@@ -141,7 +141,7 @@
       "operatingSystem": "Any (browser-based)",
       "url": fullURL,
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
-      "publisher": { "@type": "Organization", "name": "studio arq", "url": baseURL + "/" }
+      "publisher": { "@type": "Organization", "name": "studio arqs", "url": baseURL + "/" }
     };
     const s = document.createElement("script");
     s.type = "application/ld+json";
@@ -159,14 +159,14 @@
       }
       m.setAttribute("content", value);
     }
-    setMeta("og:title", title + " · studio arq toolkit");
+    setMeta("og:title", title + " · studio arqs toolkit");
     setMeta("og:description", desc);
     setMeta("og:image", ogImg);
     setMeta("og:type", "website");
     setMeta("og:url", fullURL);
     setMeta("og:locale", "en_IN");
     setMeta("twitter:card", "summary_large_image", "name");
-    setMeta("twitter:title", title + " · studio arq toolkit", "name");
+    setMeta("twitter:title", title + " · studio arqs toolkit", "name");
     setMeta("twitter:description", desc, "name");
     setMeta("twitter:image", ogImg, "name");
   })();
@@ -179,7 +179,7 @@
 
     // Tool pages
     if (path.indexOf("/tools/") === 0 && path !== "/tools/" && path !== "/tools/index.html") {
-      const title = (document.title || "").replace(/\s*[—-]\s*studio arq.*$/i, "").trim();
+      const title = (document.title || "").replace(/\s*[—-]\s*studio arqs.*$/i, "").trim();
       items = [
         { name: "Home",  url: baseURL + "/" },
         { name: "Tools", url: baseURL + "/tools/" },
@@ -191,7 +191,7 @@
         { name: "Tools", url: baseURL + "/tools/" }
       ];
     } else if (path.indexOf("/projects/") === 0) {
-      const title = (document.title || "").replace(/\s*[—-]\s*studio arq.*$/i, "").trim();
+      const title = (document.title || "").replace(/\s*[—-]\s*studio arqs.*$/i, "").trim();
       items = [
         { name: "Home",      url: baseURL + "/" },
         { name: "Portfolio", url: baseURL + "/portfolio.html" },
@@ -203,7 +203,7 @@
         { name: "Portfolio", url: baseURL + "/portfolio.html" }
       ];
     } else if (path === "/founder.html" || path === "/about.html" || path === "/services.html" || path === "/contact.html") {
-      const title = (document.title || "").replace(/\s*[—-]\s*studio arq.*$/i, "").trim();
+      const title = (document.title || "").replace(/\s*[—-]\s*studio arqs.*$/i, "").trim();
       items = [
         { name: "Home",  url: baseURL + "/" },
         { name: title,   url: baseURL + path }
@@ -460,7 +460,7 @@
 
     function buildText() {
       const h1 = document.querySelector("h1");
-      const title = h1 ? h1.textContent.trim().replace(/\s+/g, " ") : (document.title || "studio arq calculator");
+      const title = h1 ? h1.textContent.trim().replace(/\s+/g, " ") : (document.title || "studio arqs calculator");
       // Strip HTML, collapse whitespace, keep \n between rows
       const lines = [];
       out.querySelectorAll(".tool-out__hero, .tool-out__rows > div, .est-out__total, .est-out__row > div").forEach(function (b) {
@@ -469,7 +469,7 @@
       });
       const result = lines.join("\n");
       return (
-        "STUDIO ARQ · " + title + "\n" +
+        "STUDIO ARQS · " + title + "\n" +
         "—\n" +
         (result || out.textContent.trim().replace(/\s+/g, " ")) + "\n" +
         "—\n" +
@@ -520,7 +520,7 @@
         const text = buildText();
         waEl.href = "https://wa.me/917200078603?text=" + encodeURIComponent(text);
         mailEl.href = "mailto:hello@studioarq.com?subject=" +
-          encodeURIComponent("studio arq · tool result") +
+          encodeURIComponent("studio arqs · tool result") +
           "&body=" + encodeURIComponent(text);
       }
       waEl.addEventListener("click", refreshLinks);
@@ -693,16 +693,16 @@
     linkOnce("manifest", "/manifest.webmanifest");
     meta("apple-mobile-web-app-capable", "yes");
     meta("apple-mobile-web-app-status-bar-style", "black-translucent");
-    meta("apple-mobile-web-app-title", "studio arq");
-    meta("application-name", "studio arq");
+    meta("apple-mobile-web-app-title", "studio arqs");
+    meta("application-name", "studio arqs");
     meta("msapplication-TileColor", "#0B2545");
     meta("color-scheme", "dark");
 
     // Default OG / Twitter — set only if not already present.
     // (Project pages override via injectProjectSchema; tool pages via injectToolSchema.)
     var defaultImg = window.location.origin + "/assets/img/projects/akp-illam/0081.jpg";
-    var defaultTitle = document.title || "studio arq";
-    var defaultDesc  = (document.querySelector('meta[name="description"]') || {}).content || "studio arq — architecture, interiors and 3D in Chennai.";
+    var defaultTitle = document.title || "studio arqs";
+    var defaultDesc  = (document.querySelector('meta[name="description"]') || {}).content || "studio arqs — architecture, interiors and 3D in Chennai.";
     meta("og:title",       defaultTitle, true);
     meta("og:description", defaultDesc,  true);
     meta("og:image",       defaultImg,   true);
@@ -891,7 +891,7 @@
       }
       // Build a structured enquiry the studio can act on
       const f = (name) => (form.querySelector("[name=" + name + "]") || {}).value || "";
-      const subject = "Enquiry — " + (f("type") || "studio arq website");
+      const subject = "Enquiry — " + (f("type") || "studio arqs website");
       const body =
         "Name: "    + f("name")    + "\n" +
         "Email: "   + f("email")   + "\n" +
@@ -902,7 +902,7 @@
         "—\nSent from studioarq.com";
       const mailto = "mailto:hello@studioarq.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       // Also build a WhatsApp version
-      const waText = "Hi Abdul, I'd like to talk to studio arq.\n\n" + body;
+      const waText = "Hi Abdul, I'd like to talk to studio arqs.\n\n" + body;
       const waUrl = "https://wa.me/917200078603?text=" + encodeURIComponent(waText);
 
       if (status) {
@@ -1106,13 +1106,13 @@
   /* ----- floating WhatsApp button ----------------------------- */
   if (!document.querySelector(".wa-fab")) {
     const waPhone = "917200078603";
-    const waMsg   = encodeURIComponent("Hi Abdul — I'd like to talk to studio arq about a project.");
+    const waMsg   = encodeURIComponent("Hi Abdul — I'd like to talk to studio arqs about a project.");
     const wa = document.createElement("a");
     wa.className = "wa-fab";
     wa.href = "https://wa.me/" + waPhone + "?text=" + waMsg;
     wa.target = "_blank";
     wa.rel = "noopener";
-    wa.setAttribute("aria-label", "Chat with studio arq on WhatsApp");
+    wa.setAttribute("aria-label", "Chat with studio arqs on WhatsApp");
     wa.innerHTML =
       '<span class="wa-fab__icon" aria-hidden="true">' +
         '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 14.6c-.3-.1-1.6-.8-1.8-.9-.3-.1-.4-.1-.6.1s-.7.9-.9 1.1-.3.2-.6 0c-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1.1 2.8 1.2 3 2.1 3.3 5.2 4.6c.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.6-.7 1.9-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3zM12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.1-1.3c1.5.8 3.2 1.3 4.9 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.5 0-3-.4-4.3-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.2 14.9 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8z"/></svg>' +

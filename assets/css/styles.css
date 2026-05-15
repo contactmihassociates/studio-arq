@@ -1,5 +1,5 @@
-/* =====================================================
-   studio arq — Design System
+﻿/* =====================================================
+   studio arqs — Design System
    Architectural identity, palette pulled from the logo
    ===================================================== */
 
@@ -3690,7 +3690,7 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   }
   /* Header on every printed page */
   body::before {
-    content: "studio arq · architecture & interiors · +91 7200 078 603 · studioarq.com";
+    content: "studio arqs · architecture & interiors · +91 7200 078 603 · studioarq.com";
     display: block;
     font-size: 9pt;
     color: #444;

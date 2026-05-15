@@ -1,5 +1,5 @@
-/* =============================================================
-   studio arq — estimator.js
+﻿/* =============================================================
+   studio arqs — estimator.js
    Wires up any DOM element with [data-estimator-root] to the
    rates in rates.js. Designed to live on a tool page or as an
    embedded homepage widget.

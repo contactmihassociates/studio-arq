@@ -1,5 +1,5 @@
-/* =============================================================
-   STUDIO ARQ — project-page.js
+﻿/* =============================================================
+   STUDIO ARQS — project-page.js
    Renders a project detail page from the master ARQ_PROJECTS
    data + the page's data-slug attribute on <body>.
    ============================================================= */
@@ -14,7 +14,7 @@
   if (!proj) return;
 
   /* --- meta --------------------------------------------------- */
-  document.title = proj.title + " — Studio ARQ";
+  document.title = proj.title + " — Studio ARQS";
 
   /* --- hero --------------------------------------------------- */
   const heroBgImg = document.querySelector(".project-hero .hero__bg img");

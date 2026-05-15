@@ -1,5 +1,5 @@
-/* =============================================================
-   studio arq — rates.js
+﻿/* =============================================================
+   studio arqs — rates.js
    ONE place to edit every number the estimator uses.
    All rates in INR per built-up sq ft, except where noted.
    Indicative Chennai-area construction costs as of 2026.
@@ -74,5 +74,5 @@ window.ARQ_RATES = {
   ],
 
   /* ----- Disclaimer always shown under the output ----- */
-  disclaimer: "Indicative range based on Chennai market rates (2026). A studio arq site visit + brief gives you a precise quote within 7 days."
+  disclaimer: "Indicative range based on Chennai market rates (2026). A studio arqs site visit + brief gives you a precise quote within 7 days."
 };

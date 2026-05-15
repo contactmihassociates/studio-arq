@@ -1,10 +1,10 @@
-/* =============================================================
-   studio arq — Service Worker
+﻿/* =============================================================
+   studio arqs — Service Worker
    Cache-first for static assets, network-first for HTML.
    Bump CACHE_VERSION whenever you ship a major change so old
    caches are evicted on next visit.
    ============================================================= */
-const CACHE_VERSION = "v4-2026-05-15-recent";
+const CACHE_VERSION = "v5-2026-05-15-arqs";
 const CACHE_STATIC  = "arq-static-" + CACHE_VERSION;
 const CACHE_HTML    = "arq-html-"   + CACHE_VERSION;
 
