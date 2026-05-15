@@ -172,11 +172,32 @@
         form.reportValidity();
         return;
       }
+      // Build a structured enquiry the studio can act on
+      const f = (name) => (form.querySelector("[name=" + name + "]") || {}).value || "";
+      const subject = "Enquiry — " + (f("type") || "studio arq website");
+      const body =
+        "Name: "    + f("name")    + "\n" +
+        "Email: "   + f("email")   + "\n" +
+        "Phone: "   + f("phone")   + "\n" +
+        "Type: "    + f("type")    + "\n" +
+        "Budget: "  + f("budget")  + "\n\n" +
+        "Message:\n" + f("message") + "\n\n" +
+        "—\nSent from studioarq.com";
+      const mailto = "mailto:hello@studioarq.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      // Also build a WhatsApp version
+      const waText = "Hi Abdul, I'd like to talk to studio arq.\n\n" + body;
+      const waUrl = "https://wa.me/917200078603?text=" + encodeURIComponent(waText);
+
       if (status) {
         status.style.color = "var(--green-bright)";
-        status.textContent = "Thanks — we'll reply within 48 hours.";
+        status.innerHTML =
+          "Thanks — your details are ready. " +
+          "<a href=\"" + mailto + "\" style=\"color:var(--aqua-bright);text-decoration:underline;\">Send by email</a> " +
+          "or <a href=\"" + waUrl + "\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--green-bright);text-decoration:underline;\">send on WhatsApp</a>. " +
+          "We reply within 48 hours.";
       }
-      form.reset();
+      // Auto-open the mailto so it doesn't feel like a dead form
+      window.location.href = mailto;
     });
   }
 
