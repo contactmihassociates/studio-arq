@@ -4,7 +4,7 @@
    Bump CACHE_VERSION whenever you ship a major change so old
    caches are evicted on next visit.
    ============================================================= */
-const CACHE_VERSION = "v1-2026-05-15";
+const CACHE_VERSION = "v2-2026-05-15";
 const CACHE_STATIC  = "arq-static-" + CACHE_VERSION;
 const CACHE_HTML    = "arq-html-"   + CACHE_VERSION;
 
@@ -75,7 +75,23 @@ self.addEventListener("fetch", function (event) {
     return;
   }
 
-  // Cache-first for static assets (CSS, JS, images, fonts, manifest)
+  // Stale-while-revalidate for JS / CSS / JSON (so updates land within one visit)
+  if (/\.(?:js|css|json|webmanifest)$/.test(url.pathname)) {
+    event.respondWith(
+      caches.open(CACHE_STATIC).then(function (cache) {
+        return cache.match(req).then(function (cached) {
+          const refresh = fetch(req).then(function (resp) {
+            if (resp && resp.ok) cache.put(req, resp.clone());
+            return resp;
+          }).catch(function () { return cached; });
+          return cached || refresh;
+        });
+      })
+    );
+    return;
+  }
+
+  // Cache-first for everything else (images, fonts)
   event.respondWith(
     caches.match(req).then(function (cached) {
       if (cached) return cached;

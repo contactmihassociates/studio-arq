@@ -63,6 +63,30 @@
     s.type = "application/ld+json";
     s.textContent = JSON.stringify(data);
     document.head.appendChild(s);
+
+    // ImageGallery + per-image ImageObject schema (boosts image search)
+    if (proj.images && proj.images.length > 1) {
+      const gallery = {
+        "@context": "https://schema.org",
+        "@type": "ImageGallery",
+        "name": proj.title + " — gallery",
+        "description": proj.summary,
+        "image": proj.images.map(function (f, i) {
+          return {
+            "@type": "ImageObject",
+            "contentUrl": baseURL + "/assets/img/projects/" + proj.slug + "/" + f + ".jpg",
+            "name": proj.title + " — render " + (i + 1),
+            "description": proj.title + ", " + proj.sector + ", " + proj.location + ".",
+            "creditText": "studio arq",
+            "creator": { "@type": "Organization", "name": "studio arq" }
+          };
+        })
+      };
+      const g = document.createElement("script");
+      g.type = "application/ld+json";
+      g.textContent = JSON.stringify(gallery);
+      document.head.appendChild(g);
+    }
   })();
 
   /* ----- SoftwareApplication JSON-LD on tool pages ------------ */
