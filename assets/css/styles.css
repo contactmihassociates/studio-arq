@@ -208,17 +208,22 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   align-items: center;
   gap: 0;
   /* The wordmark is in the image itself — no separate text */
+  transition: transform 250ms var(--ease-out);
 }
+.brand:hover { transform: translateY(-1px); }
 .brand-mark {
   display: block;
-  height: 48px;
+  height: 44px;
   flex-shrink: 0;
+  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.45));
+  transition: filter 250ms var(--ease-out);
 }
+.brand:hover .brand-mark { filter: drop-shadow(0 10px 22px rgba(58,175,228,0.35)); }
 .brand-mark img {
   height: 100%;
   width: auto;
   display: block;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 /* The text-block is now visually hidden but kept for SR / SEO */
 .brand-text {
