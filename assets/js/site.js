@@ -11,6 +11,32 @@
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
+  /* ----- SoftwareApplication JSON-LD on tool pages ------------ */
+  (function injectToolSchema() {
+    const path = window.location.pathname;
+    if (path.indexOf("/tools/") !== 0 || path === "/tools/" || path === "/tools/index.html") return;
+
+    const titleEl = document.querySelector("h1");
+    const descEl  = document.querySelector('meta[name="description"]');
+    const title = (titleEl ? titleEl.textContent : document.title).trim().replace(/\s+/g, " ");
+    const desc  = (descEl ? descEl.getAttribute("content") : "Free calculator by studio arq.").trim();
+    const data = {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": title,
+      "description": desc,
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any (browser-based)",
+      "url": window.location.origin + path,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+      "publisher": { "@type": "Organization", "name": "studio arq", "url": window.location.origin + "/" }
+    };
+    const s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify(data);
+    document.head.appendChild(s);
+  })();
+
   /* ----- breadcrumb JSON-LD (auto-generated per page) --------- */
   (function injectBreadcrumb() {
     const path = window.location.pathname;
