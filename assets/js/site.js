@@ -11,6 +11,60 @@
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
+  /* ----- breadcrumb JSON-LD (auto-generated per page) --------- */
+  (function injectBreadcrumb() {
+    const path = window.location.pathname;
+    const baseURL = window.location.origin;
+    let items = null;
+
+    // Tool pages
+    if (path.indexOf("/tools/") === 0 && path !== "/tools/" && path !== "/tools/index.html") {
+      const title = (document.title || "").replace(/\s*[—-]\s*studio arq.*$/i, "").trim();
+      items = [
+        { name: "Home",  url: baseURL + "/" },
+        { name: "Tools", url: baseURL + "/tools/" },
+        { name: title,   url: baseURL + path }
+      ];
+    } else if (path === "/tools/" || path === "/tools/index.html") {
+      items = [
+        { name: "Home",  url: baseURL + "/" },
+        { name: "Tools", url: baseURL + "/tools/" }
+      ];
+    } else if (path.indexOf("/projects/") === 0) {
+      const title = (document.title || "").replace(/\s*[—-]\s*studio arq.*$/i, "").trim();
+      items = [
+        { name: "Home",      url: baseURL + "/" },
+        { name: "Portfolio", url: baseURL + "/portfolio.html" },
+        { name: title,       url: baseURL + path }
+      ];
+    } else if (path === "/portfolio.html") {
+      items = [
+        { name: "Home",      url: baseURL + "/" },
+        { name: "Portfolio", url: baseURL + "/portfolio.html" }
+      ];
+    } else if (path === "/founder.html" || path === "/about.html" || path === "/services.html" || path === "/contact.html") {
+      const title = (document.title || "").replace(/\s*[—-]\s*studio arq.*$/i, "").trim();
+      items = [
+        { name: "Home",  url: baseURL + "/" },
+        { name: title,   url: baseURL + path }
+      ];
+    }
+
+    if (items) {
+      const data = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": items.map(function (it, i) {
+          return { "@type": "ListItem", "position": i + 1, "name": it.name, "item": it.url };
+        })
+      };
+      const s = document.createElement("script");
+      s.type = "application/ld+json";
+      s.textContent = JSON.stringify(data);
+      document.head.appendChild(s);
+    }
+  })();
+
   /* ----- decorative background -------------------------------- */
   if (!document.querySelector(".bg-grid")) {
     const grid  = document.createElement("div"); grid.className  = "bg-grid";
