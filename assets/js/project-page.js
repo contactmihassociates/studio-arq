@@ -35,6 +35,13 @@
   if (summaryEl) summaryEl.textContent = proj.summary;
   if (countEl)   countEl.textContent = proj.images.length;
 
+  /* --- lead architect + tools (auto-filled from defaults) ----- */
+  const defaults = window.ARQ_DEFAULTS || {};
+  const leadEl  = document.querySelector("[data-bind=lead]");
+  const toolsEl = document.querySelector("[data-bind=tools]");
+  if (leadEl)  leadEl.textContent  = proj.lead  || defaults.lead  || "";
+  if (toolsEl) toolsEl.textContent = (proj.tools || defaults.tools || []).join(" · ");
+
   /* --- gallery ------------------------------------------------ */
   const grid = document.querySelector("[data-bind=gallery]");
   if (grid) {

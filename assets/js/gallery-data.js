@@ -1,9 +1,16 @@
 /* =============================================================
-   STUDIO ARQ — gallery-data.js
+   studio arqs — gallery-data.js
    Master list of every project image, used to power the
    portfolio masonry galleries and project detail pages.
    Add a new project here and every gallery picks it up.
    ============================================================= */
+
+/* Studio defaults — applied to every project unless overridden */
+window.ARQ_DEFAULTS = {
+  lead: "Abdul Azeem · Principal Architect",
+  tools: ["Revit", "AutoCAD", "SketchUp", "Twin Motion"],
+  studio: "studio arqs"
+};
 
 window.ARQ_PROJECTS = [
   {
