@@ -145,6 +145,27 @@
     }
   })();
 
+  /* ----- image perf: lazy + decode async on non-hero imgs ----- */
+  function tagImg(img) {
+    if (img.closest(".hero__bg") || img.closest(".project-hero .hero__bg") || img.closest(".brand-mark")) return;
+    if (!img.hasAttribute("loading")) img.setAttribute("loading", "lazy");
+    if (!img.hasAttribute("decoding")) img.setAttribute("decoding", "async");
+  }
+  // Run once on existing imgs
+  document.querySelectorAll("img").forEach(tagImg);
+  // And on any JS-injected imgs after the fact
+  if ("MutationObserver" in window) {
+    new MutationObserver(function (records) {
+      records.forEach(function (r) {
+        r.addedNodes && r.addedNodes.forEach(function (n) {
+          if (n.nodeType !== 1) return;
+          if (n.tagName === "IMG") tagImg(n);
+          else if (n.querySelectorAll) n.querySelectorAll("img").forEach(tagImg);
+        });
+      });
+    }).observe(document.body, { childList: true, subtree: true });
+  }
+
   /* ----- decorative background -------------------------------- */
   if (!document.querySelector(".bg-grid")) {
     const grid  = document.createElement("div"); grid.className  = "bg-grid";
