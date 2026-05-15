@@ -11,6 +11,60 @@
   const $  = (sel, ctx = document) => ctx.querySelector(sel);
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
+  /* ----- Project page OG image + CreativeWork JSON-LD --------- */
+  (function injectProjectSchema() {
+    const slug = document.body && document.body.dataset && document.body.dataset.slug;
+    if (!slug || !window.ARQ_PROJECTS) return;
+    const proj = window.ARQ_PROJECTS.find(function (p) { return p.slug === slug; });
+    if (!proj) return;
+
+    const baseURL = window.location.origin;
+    const imgURL = baseURL + "/assets/img/projects/" + proj.slug + "/" + proj.images[0] + ".jpg";
+
+    // Set or insert <meta property="og:*">
+    function setMeta(key, value, type) {
+      type = type || "property";
+      let m = document.querySelector('meta[' + type + '="' + key + '"]');
+      if (!m) {
+        m = document.createElement("meta");
+        m.setAttribute(type, key);
+        document.head.appendChild(m);
+      }
+      m.setAttribute("content", value);
+    }
+    setMeta("og:title", proj.title + " — studio arq");
+    setMeta("og:description", proj.summary || "");
+    setMeta("og:image", imgURL);
+    setMeta("og:type", "article");
+    setMeta("og:url", baseURL + window.location.pathname);
+    setMeta("og:locale", "en_IN");
+    setMeta("twitter:card", "summary_large_image", "name");
+    setMeta("twitter:title", proj.title + " — studio arq", "name");
+    setMeta("twitter:description", proj.summary || "", "name");
+    setMeta("twitter:image", imgURL, "name");
+
+    // CreativeWork / Project JSON-LD
+    const data = {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      "name": proj.title,
+      "description": proj.summary,
+      "image": imgURL,
+      "dateCreated": proj.year,
+      "locationCreated": { "@type": "Place", "address": proj.location },
+      "creator": {
+        "@type": "Organization",
+        "name": "studio arq",
+        "founder": { "@type": "Person", "name": "Abdul Azeem", "jobTitle": "Principal Architect" }
+      },
+      "about": proj.sector
+    };
+    const s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify(data);
+    document.head.appendChild(s);
+  })();
+
   /* ----- SoftwareApplication JSON-LD on tool pages ------------ */
   (function injectToolSchema() {
     const path = window.location.pathname;
