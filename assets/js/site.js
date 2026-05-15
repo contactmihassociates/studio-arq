@@ -142,6 +142,46 @@
       s.type = "application/ld+json";
       s.textContent = JSON.stringify(data);
       document.head.appendChild(s);
+
+      // Visible breadcrumb (skip if a project-hero is taking the slot — it has its own meta)
+      if (items.length > 1) {
+        const crumbs = document.createElement("nav");
+        crumbs.className = "crumbs";
+        crumbs.setAttribute("aria-label", "Breadcrumb");
+        const inner = document.createElement("div");
+        inner.className = "crumbs__inner";
+        items.forEach(function (it, i) {
+          if (i > 0) {
+            const sep = document.createElement("span");
+            sep.className = "sep";
+            sep.textContent = "/";
+            inner.appendChild(sep);
+          }
+          if (i === items.length - 1) {
+            const cur = document.createElement("span");
+            cur.className = "current";
+            cur.textContent = it.name;
+            inner.appendChild(cur);
+          } else {
+            const a = document.createElement("a");
+            a.href = it.url;
+            a.textContent = it.name;
+            inner.appendChild(a);
+          }
+        });
+        crumbs.appendChild(inner);
+        // Insert at top of <main>
+        const main = document.getElementById("main") || document.querySelector("main");
+        if (main && main.firstChild) {
+          // If first child is a section with project-hero, put crumbs INSIDE it (over the bg)
+          const firstSection = main.querySelector("section");
+          if (firstSection && firstSection.classList.contains("project-hero")) {
+            firstSection.appendChild(crumbs);
+          } else {
+            main.insertBefore(crumbs, main.firstChild);
+          }
+        }
+      }
     }
   })();
 
