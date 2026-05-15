@@ -948,6 +948,104 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 }
 
 /* =========================================
+   Brand kit (footer area)
+   ========================================= */
+.brandkit {
+  border-top: 1px solid var(--line);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+@media (min-width: 800px) { .brandkit { grid-template-columns: 1.2fr 1fr 1fr; gap: var(--space-7); } }
+
+.brandkit h5 {
+  color: rgba(255,255,255,0.55);
+  margin-bottom: var(--space-4);
+}
+
+.brandkit__downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.brandkit__downloads a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  font-size: var(--step--2);
+  color: rgba(255,255,255,0.78);
+  background: rgba(255,255,255,0.02);
+  transition: all 200ms var(--ease-out);
+}
+.brandkit__downloads a:hover {
+  border-color: var(--aqua-bright);
+  color: var(--white);
+  background: rgba(58,175,228,0.06);
+}
+.brandkit__downloads a::before {
+  content: "↓";
+  font-size: 1em;
+  color: var(--green-bright);
+}
+
+.brandkit__swatches {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+.swatch {
+  position: relative;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  cursor: copy;
+  transition: transform 200ms var(--ease-out), border-color 200ms var(--ease-out);
+}
+.swatch:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.25); }
+.swatch::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 28px;
+  border-radius: 6px;
+  margin-bottom: var(--space-3);
+  background: var(--swatch-bg, #fff);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.swatch--navy   { --swatch-bg: #0B2545; }
+.swatch--aqua   { --swatch-bg: #3AAFE4; }
+.swatch--green  { --swatch-bg: #5CC683; }
+.swatch--paper  { --swatch-bg: #F6F8FB; }
+.swatch .name { display: block; font-size: var(--step--2); letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 2px; }
+.swatch .hex  { display: block; font-family: var(--font-mono); font-size: var(--step--1); color: var(--white); }
+
+.brandkit__fonts ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+.brandkit__fonts li {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  color: var(--white);
+}
+.brandkit__fonts li span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.12em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.brandkit__fonts li.font-body {
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+/* =========================================
    Reveal animations
    ========================================= */
 .reveal {
