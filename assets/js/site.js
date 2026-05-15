@@ -89,15 +89,49 @@
     }
   })();
 
-  /* ----- SoftwareApplication JSON-LD on tool pages ------------ */
+  /* ----- SoftwareApplication JSON-LD + OG meta on tool pages -- */
   (function injectToolSchema() {
     const path = window.location.pathname;
-    if (path.indexOf("/tools/") !== 0 || path === "/tools/" || path === "/tools/index.html") return;
+    if (path.indexOf("/tools/") !== 0) return;
 
+    const baseURL = window.location.origin;
+
+    // -- tools directory: emit ItemList of all tools (for SEO) --
+    if (path === "/tools/" || path === "/tools/index.html") {
+      const cards = document.querySelectorAll(".tool-link[href]");
+      if (cards.length) {
+        const items = Array.from(cards).map(function (a, i) {
+          const h = a.querySelector("h3");
+          return {
+            "@type": "ListItem",
+            "position": i + 1,
+            "name": h ? h.textContent.trim() : a.textContent.trim().slice(0, 60),
+            "url": new URL(a.getAttribute("href"), baseURL + path).href
+          };
+        });
+        const list = {
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "studio arq · architect's toolkit",
+          "itemListElement": items
+        };
+        const sList = document.createElement("script");
+        sList.type = "application/ld+json";
+        sList.textContent = JSON.stringify(list);
+        document.head.appendChild(sList);
+      }
+      return;
+    }
+
+    // -- individual tool page: SoftwareApplication + OG meta --
     const titleEl = document.querySelector("h1");
     const descEl  = document.querySelector('meta[name="description"]');
-    const title = (titleEl ? titleEl.textContent : document.title).trim().replace(/\s+/g, " ");
-    const desc  = (descEl ? descEl.getAttribute("content") : "Free calculator by studio arq.").trim();
+    const title   = (titleEl ? titleEl.textContent : document.title).trim().replace(/\s+/g, " ");
+    const desc    = (descEl ? descEl.getAttribute("content") : "Free calculator by studio arq.").trim();
+    const fullURL = baseURL + path;
+    const ogImg   = baseURL + "/assets/img/projects/akp-illam/0081.jpg";
+
+    // SoftwareApplication schema
     const data = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -105,14 +139,36 @@
       "description": desc,
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Any (browser-based)",
-      "url": window.location.origin + path,
+      "url": fullURL,
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
-      "publisher": { "@type": "Organization", "name": "studio arq", "url": window.location.origin + "/" }
+      "publisher": { "@type": "Organization", "name": "studio arq", "url": baseURL + "/" }
     };
     const s = document.createElement("script");
     s.type = "application/ld+json";
     s.textContent = JSON.stringify(data);
     document.head.appendChild(s);
+
+    // OG / Twitter meta — only if not already present
+    function setMeta(key, value, type) {
+      type = type || "property";
+      let m = document.querySelector('meta[' + type + '="' + key + '"]');
+      if (!m) {
+        m = document.createElement("meta");
+        m.setAttribute(type, key);
+        document.head.appendChild(m);
+      }
+      m.setAttribute("content", value);
+    }
+    setMeta("og:title", title + " · studio arq toolkit");
+    setMeta("og:description", desc);
+    setMeta("og:image", ogImg);
+    setMeta("og:type", "website");
+    setMeta("og:url", fullURL);
+    setMeta("og:locale", "en_IN");
+    setMeta("twitter:card", "summary_large_image", "name");
+    setMeta("twitter:title", title + " · studio arq toolkit", "name");
+    setMeta("twitter:description", desc, "name");
+    setMeta("twitter:image", ogImg, "name");
   })();
 
   /* ----- breadcrumb JSON-LD (auto-generated per page) --------- */

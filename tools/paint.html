@@ -43,6 +43,12 @@
 
     <section class="section">
       <div class="container">
+        <noscript>
+  <div style="margin: var(--space-5) 0; padding: var(--space-5); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.85);">
+    <strong style="color:var(--white);">This calculator needs JavaScript.</strong>
+    Please enable it in your browser, or <a href="../contact.html" style="color: var(--aqua-bright);">contact the studio</a> directly and we'll send the number by email.
+  </div>
+</noscript>
         <div class="tool-shell" data-tool-root>
           <div class="tool-shell__form">
             <div class="field">
@@ -120,7 +126,7 @@
   </footer>
 
   <script src="tools-shared.js"></script>
-  <script defer>
+  <script>
     ARQ_TOOLS.ready(function () {
       var root = document.querySelector('[data-tool-root]');
       var mode = document.getElementById('pt-mode');
