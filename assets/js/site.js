@@ -265,6 +265,93 @@
     }
   })();
 
+  /* ----- per-tool input autosave (localStorage) -------------- */
+  (function injectAutosave() {
+    const path = window.location.pathname;
+    if (path.indexOf("/tools/") !== 0 || path === "/tools/" || path === "/tools/index.html") return;
+    const slug = (path.split("/").pop() || "tool").replace(".html", "");
+    const KEY = "arq.tool." + slug + ".v1";
+
+    let storage = null;
+    try { storage = window.localStorage; storage.setItem("__t", "1"); storage.removeItem("__t"); }
+    catch (e) { return; /* localStorage unavailable */ }
+
+    // Find all named inputs/selects on the page (skip honeypot + search)
+    const fields = function () {
+      return Array.from(document.querySelectorAll("input, select, textarea"))
+        .filter(function (el) {
+          if (!el.name && !el.id) return false;
+          if (el.type === "hidden" || el.type === "submit" || el.type === "button") return false;
+          if (el.name === "company_website") return false;             // honeypot
+          if (el.id === "toolSearch") return false;
+          if (el.closest(".hp-field")) return false;
+          return true;
+        });
+    };
+
+    function key(el) { return el.name || el.id; }
+
+    // Restore on load
+    function restore() {
+      let saved = null;
+      try { saved = JSON.parse(storage.getItem(KEY) || "null"); } catch (e) {}
+      if (!saved) return;
+      fields().forEach(function (el) {
+        const k = key(el);
+        if (k in saved) {
+          el.value = saved[k];
+          // Trigger input + change so the tool's calc runs with restored values
+          el.dispatchEvent(new Event("input",  { bubbles: true }));
+          el.dispatchEvent(new Event("change", { bubbles: true }));
+        }
+      });
+    }
+
+    // Save on any change
+    function save() {
+      const data = {};
+      fields().forEach(function (el) { data[key(el)] = el.value; });
+      try { storage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
+    }
+
+    // Inject a 'Reset' chip near the result-actions row (added by AE)
+    function ensureResetChip() {
+      const row = document.querySelector(".result-actions");
+      if (!row || row.querySelector("[data-tool-reset]")) return;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("data-tool-reset", "");
+      btn.textContent = "↺ Reset inputs";
+      btn.addEventListener("click", function () {
+        try { storage.removeItem(KEY); } catch (e) {}
+        // Reload to restore default values declared in HTML
+        window.location.reload();
+      });
+      row.appendChild(btn);
+    }
+
+    // Wait until DOM is ready + tool has initialised, then restore
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(restore, 60);
+        setTimeout(ensureResetChip, 600);
+      });
+    } else {
+      setTimeout(restore, 60);
+      setTimeout(ensureResetChip, 600);
+    }
+
+    // Save on every input/change (debounced)
+    let saveTimer = 0;
+    document.addEventListener("input",  function () { clearTimeout(saveTimer); saveTimer = setTimeout(save, 300); });
+    document.addEventListener("change", function () { clearTimeout(saveTimer); saveTimer = setTimeout(save, 300); });
+
+    // Also try injecting Reset chip if result-actions appears later
+    if ("MutationObserver" in window) {
+      new MutationObserver(ensureResetChip).observe(document.body, { childList: true, subtree: true });
+    }
+  })();
+
   /* ----- result-actions: Copy + Share on every tool ---------- */
   (function injectResultActions() {
     const path = window.location.pathname;
