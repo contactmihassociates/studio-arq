@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Cost Estimator — studio arq</title>
+  <meta name="description" content="Indicative construction cost estimator for residential, apartments, commercial, hospitality, healthcare and interior fit-out projects in Chennai. Built by studio arq." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="canonical" href="https://studioarq.com/tools/cost-estimator.html" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="apple-touch-icon" href="../assets/img/brand/logo-sm.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="../assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="../tools/cost-estimator.html" class="is-active">Tools</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1h20M1 7h20M1 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/akp-illam/0081.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Tools · Cost estimator</span>
+        <h1>Get an indicative <span class="gradient-text">project budget</span> in 30 seconds.</h1>
+        <p class="lead" style="max-width:640px;">Built for prospective clients in Chennai. Pick your project type, the finish grade you're aiming for, your area in square feet — and the rates are calculated from current Chennai market figures.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="estimator" data-estimator-root>
+          <div class="estimator__form">
+            <div>
+              <h3>What are you building?</h3>
+              <p class="sub">All four selections combine to produce an indicative cost range and timeline.</p>
+            </div>
+
+            <div class="field">
+              <label for="est-type">Project type</label>
+              <select id="est-type" data-estimator="type">
+                <option value="residential">Private residence / Villa</option>
+                <option value="apartments">Apartment block</option>
+                <option value="commercial">Commercial / Retail / Office</option>
+                <option value="hospitality">Hospitality (restaurant, hotel)</option>
+                <option value="healthcare">Healthcare / Clinic</option>
+                <option value="interior">Interior fit-out only</option>
+              </select>
+            </div>
+
+            <div class="estimator__row">
+              <div class="field">
+                <label for="est-grade">Finish grade</label>
+                <select id="est-grade" data-estimator="grade">
+                  <option value="standard">Standard</option>
+                  <option value="premium" selected>Premium</option>
+                  <option value="luxury">Luxury</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="est-location">Location</label>
+                <select id="est-location" data-estimator="location">
+                  <option value="chennai" selected>Chennai</option>
+                  <option value="tn">Other Tamil Nadu</option>
+                  <option value="outside">Outside Tamil Nadu</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="est-area">Built-up area (sq ft)</label>
+              <div class="estimator__area">
+                <input id="est-area-slider" type="range" min="200" max="20000" step="50" value="2400" data-estimator="area-slider" aria-label="Built-up area slider" />
+                <input id="est-area" type="number" min="200" max="200000" step="50" value="2400" data-estimator="area" aria-label="Built-up area in square feet" />
+              </div>
+            </div>
+
+            <div class="estimator__cta">
+              <a href="../contact.html" class="btn btn--primary btn--icon">Get a real quote</a>
+              <span class="estimator__cta-note">Reply within 48h</span>
+            </div>
+          </div>
+
+          <div class="est-out" data-estimator="output" aria-live="polite">
+            <div class="est-out__empty">Pick your inputs to see an indicative range.</div>
+          </div>
+        </div>
+
+        <p style="margin-top: var(--space-6); font-size: var(--step--1); color: rgba(255,255,255,0.55); max-width: 720px;">
+          <strong style="color: var(--white);">A note on accuracy.</strong> These numbers come from Chennai construction-market rates as of 2026 and are meant as a starting point for conversation — not a quote. A 30-minute call with Abdul will get you a tighter number specific to your plot, brief and finishes.
+        </p>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <!-- More tools placeholder for future -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">More tools coming</span>
+            <h2 class="reveal">A small library of <span class="gradient-text">decision tools</span>.</h2>
+          </div>
+          <p class="reveal" data-delay="100">We're building a small set of free, no-signup calculators for prospective clients. The cost estimator is the first.</p>
+        </div>
+
+        <div class="differentiators">
+          <article class="differ reveal">
+            <svg class="differ__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="4" width="24" height="24" rx="3"/><path d="M4 12h24M12 4v24"/></svg>
+            <h4>Design-fee calculator</h4>
+            <p>What does an architect actually charge? Drop your scope, get a fee range. <em>Coming soon.</em></p>
+          </article>
+          <article class="differ reveal" data-delay="100">
+            <svg class="differ__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 28V12l12-8 12 8v16"/><path d="M12 28V18h8v10"/></svg>
+            <h4>Carpet ↔ built-up ↔ super area</h4>
+            <p>Convert between the three Indian area conventions, with realistic loading factors for Chennai. <em>Coming soon.</em></p>
+          </article>
+          <article class="differ reveal" data-delay="200">
+            <svg class="differ__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="16" cy="16" r="11"/><path d="M16 5v22M5 16h22"/></svg>
+            <h4>Interactive quotation wizard</h4>
+            <p>Multi-step form: pick scope, sign off, get a PDF estimate. <em>Coming soon.</em></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="../founder.html">Abdul Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://in.linkedin.com/in/abd-al-azeem" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../tools/rates.js" defer></script>
+  <script src="../tools/estimator.js" defer></script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

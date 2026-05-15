@@ -70,9 +70,9 @@
 
       <nav class="nav" id="primaryNav" aria-label="Primary">
         <a href="#projects">Work</a>
-        <a href="#why">Why ARQ</a>
         <a href="founder.html">Founder</a>
         <a href="#services">Services</a>
+        <a href="tools/cost-estimator.html">Tools</a>
         <a href="#contact">Contact</a>
         <a href="portfolio.html">Portfolio</a>
       </nav>
@@ -731,6 +731,73 @@
 
     <hr class="divider" />
 
+    <!-- ==================== COST ESTIMATOR (homepage embed) ==================== -->
+    <section class="section" id="estimator" aria-label="Project cost estimator">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Free tool</span>
+            <h2 class="reveal">Get an indicative <span class="gradient-text">budget in 30 seconds</span>.</h2>
+          </div>
+          <p class="reveal" data-delay="100">Pick project type, finish grade and area — the cost &amp; timeline range is calculated from current Chennai market rates. <a href="tools/cost-estimator.html">Open the full tool →</a></p>
+        </div>
+
+        <div class="estimator reveal" data-estimator-root>
+          <div class="estimator__form">
+            <div class="field">
+              <label for="hp-est-type">Project type</label>
+              <select id="hp-est-type" data-estimator="type">
+                <option value="residential">Private residence</option>
+                <option value="apartments">Apartment block</option>
+                <option value="commercial">Commercial</option>
+                <option value="hospitality">Hospitality</option>
+                <option value="healthcare">Healthcare</option>
+                <option value="interior">Interior fit-out</option>
+              </select>
+            </div>
+
+            <div class="estimator__row">
+              <div class="field">
+                <label for="hp-est-grade">Grade</label>
+                <select id="hp-est-grade" data-estimator="grade">
+                  <option value="standard">Standard</option>
+                  <option value="premium" selected>Premium</option>
+                  <option value="luxury">Luxury</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="hp-est-location">Location</label>
+                <select id="hp-est-location" data-estimator="location">
+                  <option value="chennai" selected>Chennai</option>
+                  <option value="tn">Other TN</option>
+                  <option value="outside">Outside TN</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="hp-est-area">Built-up area (sq ft)</label>
+              <div class="estimator__area">
+                <input id="hp-est-area-slider" type="range" min="200" max="20000" step="50" value="2400" data-estimator="area-slider" aria-label="Area slider" />
+                <input id="hp-est-area" type="number" min="200" max="200000" step="50" value="2400" data-estimator="area" aria-label="Area in square feet" />
+              </div>
+            </div>
+
+            <div class="estimator__cta">
+              <a href="tools/cost-estimator.html" class="btn btn--sm btn--icon">Full tool</a>
+              <a href="#contact" class="btn btn--sm btn--primary btn--icon">Get a real quote</a>
+            </div>
+          </div>
+
+          <div class="est-out" data-estimator="output" aria-live="polite">
+            <div class="est-out__empty">Pick your inputs to see an indicative range.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
     <!-- ==================== CONTACT ==================== -->
     <section class="section contact" id="contact">
       <div class="container">
@@ -923,6 +990,8 @@
     <div class="lightbox__caption" id="lbCaption"></div>
   </div>
 
+  <script src="tools/rates.js" defer></script>
+  <script src="tools/estimator.js" defer></script>
   <script src="assets/js/site.js" defer></script>
 </body>
 </html>
