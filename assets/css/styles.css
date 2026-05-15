@@ -2360,6 +2360,56 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 .tools-empty.is-visible { display: block; }
 
 /* =========================================
+   Result-actions row (Copy + Share)
+   ========================================= */
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+.result-actions button,
+.result-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.85);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 200ms var(--ease-out);
+  font-family: inherit;
+}
+.result-actions button:hover,
+.result-actions a:hover {
+  border-color: var(--aqua-bright);
+  color: var(--white);
+  background: rgba(58,175,228,0.06);
+}
+.result-actions .result-actions__wa {
+  background: #25D366;
+  color: #fff;
+  border-color: transparent;
+}
+.result-actions .result-actions__wa:hover {
+  background: #1bbb56;
+  color: #fff;
+}
+.result-actions .is-success {
+  background: rgba(92,198,131,0.18);
+  color: var(--green-bright);
+  border-color: var(--green-bright);
+}
+
+/* =========================================
    "Try this next" — cross-tool deeplinks
    ========================================= */
 .tool-next {

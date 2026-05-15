@@ -265,6 +265,94 @@
     }
   })();
 
+  /* ----- result-actions: Copy + Share on every tool ---------- */
+  (function injectResultActions() {
+    const path = window.location.pathname;
+    if (path.indexOf("/tools/") !== 0 || path === "/tools/" || path === "/tools/index.html") return;
+
+    // Find the tool output panel. Both legacy cost-estimator and v2 tools
+    // expose a panel via [data-tool-output] or [data-estimator=output].
+    const out = document.querySelector("[data-tool-output]") || document.querySelector("[data-estimator=output]");
+    if (!out) return;
+
+    function buildText() {
+      const h1 = document.querySelector("h1");
+      const title = h1 ? h1.textContent.trim().replace(/\s+/g, " ") : (document.title || "studio arq calculator");
+      // Strip HTML, collapse whitespace, keep \n between rows
+      const lines = [];
+      out.querySelectorAll(".tool-out__hero, .tool-out__rows > div, .est-out__total, .est-out__row > div").forEach(function (b) {
+        const txt = b.textContent.trim().replace(/\s+/g, " ");
+        if (txt) lines.push(txt);
+      });
+      const result = lines.join("\n");
+      return (
+        "STUDIO ARQ · " + title + "\n" +
+        "—\n" +
+        (result || out.textContent.trim().replace(/\s+/g, " ")) + "\n" +
+        "—\n" +
+        "Calculated at: " + window.location.origin + path + "\n" +
+        "Get a real proposal: " + window.location.origin + "/tools/quote.html"
+      );
+    }
+
+    function ensureActions() {
+      // Only show actions once the output has real content (not the empty-state)
+      const filled = out.textContent.trim().length > 60;
+      let row = out.parentElement.querySelector(".result-actions");
+      if (!filled) { if (row) row.style.display = "none"; return; }
+      if (row) { row.style.display = "flex"; return; }
+
+      row = document.createElement("div");
+      row.className = "result-actions";
+      row.innerHTML =
+        '<button type="button" data-result-copy>📋 Copy result</button>' +
+        '<a class="result-actions__wa" data-result-wa target="_blank" rel="noopener">Send on WhatsApp</a>' +
+        '<a data-result-mail>Email the studio</a>';
+      out.parentElement.insertBefore(row, out.nextSibling);
+
+      row.querySelector("[data-result-copy]").addEventListener("click", function (e) {
+        const btn = e.currentTarget;
+        const text = buildText();
+        const done = function () {
+          const prev = btn.textContent;
+          btn.textContent = "✓ Copied to clipboard";
+          btn.classList.add("is-success");
+          setTimeout(function () { btn.textContent = prev; btn.classList.remove("is-success"); }, 2200);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, function () { /* graceful fail */ });
+        } else {
+          // Legacy fallback
+          const ta = document.createElement("textarea");
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand("copy"); done(); } catch (_) {}
+          document.body.removeChild(ta);
+        }
+      });
+
+      // Update the WA + mailto links on click (so they reflect latest output)
+      const waEl   = row.querySelector("[data-result-wa]");
+      const mailEl = row.querySelector("[data-result-mail]");
+      function refreshLinks() {
+        const text = buildText();
+        waEl.href = "https://wa.me/917200078603?text=" + encodeURIComponent(text);
+        mailEl.href = "mailto:hello@studioarq.com?subject=" +
+          encodeURIComponent("studio arq · tool result") +
+          "&body=" + encodeURIComponent(text);
+      }
+      waEl.addEventListener("click", refreshLinks);
+      mailEl.addEventListener("click", refreshLinks);
+      refreshLinks();
+    }
+
+    // Observe the output panel for content changes (calc re-runs on every input)
+    if ("MutationObserver" in window) {
+      new MutationObserver(ensureActions).observe(out, { childList: true, subtree: true, characterData: true });
+    }
+    // Initial run after a tick so the tool has rendered first
+    setTimeout(ensureActions, 250);
+  })();
+
   /* ----- 'Try this next' on every tool page ------------------ */
   (function injectToolNext() {
     const path = window.location.pathname;
