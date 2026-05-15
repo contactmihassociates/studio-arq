@@ -263,6 +263,26 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 .nav a:hover, .nav a.is-active { color: var(--white); }
 .nav a:hover::after, .nav a.is-active::after { transform: scaleX(1); }
 
+/* "Get a quote" — primary CTA button living inside .nav */
+.nav .nav-cta {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--grad-brand);
+  color: var(--navy-900) !important;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: var(--step--2);
+  margin-left: var(--space-2);
+  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+.nav .nav-cta::after { display: none !important; }
+.nav .nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(92,198,131,0.35);
+  color: var(--navy-900) !important;
+}
+
 .nav-toggle {
   display: none;
   background: transparent;

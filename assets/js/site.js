@@ -427,6 +427,24 @@
     });
   }
 
+  /* ----- nav 'Get a quote' CTA ------------------------------- */
+  (function injectNavCta() {
+    const nav = document.querySelector(".nav");
+    if (!nav) return;
+    // Skip on the quote page itself
+    if (location.pathname.indexOf("/tools/quote") === 0 || location.pathname === "/tools/quote.html") return;
+    // Skip if already present
+    if (nav.querySelector(".nav-cta")) return;
+    // Determine href prefix
+    const isSub = location.pathname.indexOf("/projects/") === 0 || location.pathname.indexOf("/tools/") === 0;
+    const href = isSub ? "../tools/quote.html" : "tools/quote.html";
+    const a = document.createElement("a");
+    a.href = href;
+    a.className = "nav-cta";
+    a.textContent = "Get a quote";
+    nav.appendChild(a);
+  })();
+
   /* ----- floating WhatsApp button ----------------------------- */
   if (!document.querySelector(".wa-fab")) {
     const waPhone = "917200078603";
