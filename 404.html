@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Page not found — studio arq</title>
+  <meta name="description" content="That page is missing — but here's a way back to the studio arq portfolio, tools and contact." />
+  <meta name="theme-color" content="#0B2545" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/brand/favicon.svg" />
+  <link rel="alternate icon" type="image/jpeg" href="/assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <style>
+    .e404 {
+      min-height: calc(100vh - var(--header-h));
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: var(--space-9) var(--space-5);
+    }
+    .e404__num {
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 22vw, 14rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      background: var(--grad-brand);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0 0 var(--space-4);
+    }
+    .e404 h1 {
+      font-size: var(--step-4);
+      margin-bottom: var(--space-3);
+    }
+    .e404 p {
+      color: rgba(255,255,255,0.7);
+      max-width: 520px;
+      margin: 0 auto var(--space-7);
+    }
+    .e404 .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      justify-content: center;
+      margin-bottom: var(--space-8);
+    }
+    .e404 .quick {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    @media (min-width: 700px) {
+      .e404 .quick { grid-template-columns: repeat(2, 1fr); }
+    }
+    .e404 .quick a {
+      padding: var(--space-4) var(--space-5);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.02);
+      text-align: left;
+      color: var(--white);
+      text-decoration: none;
+      transition: all 200ms var(--ease-out);
+    }
+    .e404 .quick a:hover {
+      border-color: var(--aqua-bright);
+      background: rgba(58,175,228,0.04);
+      transform: translateY(-2px);
+    }
+    .e404 .quick a span {
+      display: block;
+      font-size: var(--step--2);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--aqua-bright);
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="/index.html" class="brand" aria-label="studio arq — home"><span class="brand-mark" aria-hidden="true"><img src="/assets/img/brand/logo.jpg" alt="" /></span><span class="brand-text">studio arq</span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="/index.html#projects">Work</a>
+        <a href="/about.html">Studio</a>
+        <a href="/founder.html">Founder</a>
+        <a href="/services.html">Services</a>
+        <a href="/tools/">Tools</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/portfolio.html">Portfolio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="e404">
+      <div>
+        <div class="e404__num" aria-hidden="true">404</div>
+        <h1>That page is somewhere else.</h1>
+        <p>Maybe the link is mistyped, or maybe we moved a page. Either way, here are the quickest ways back into the studio.</p>
+        <div class="actions">
+          <a href="/index.html" class="btn btn--primary btn--icon">Back to home</a>
+          <a href="https://wa.me/917200078603" target="_blank" rel="noopener" class="btn" style="background:#25D366;border-color:transparent;color:#fff;font-weight:600;">WhatsApp Abdul</a>
+        </div>
+
+        <div class="quick">
+          <a href="/portfolio.html"><span>Most visited</span>Browse the portfolio →</a>
+          <a href="/tools/"><span>Try a tool</span>The 12-tool toolkit →</a>
+          <a href="/founder.html"><span>About the practice</span>Meet Abdul Azeem →</a>
+          <a href="/contact.html"><span>Talk to us</span>Email or visit the studio →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> studio arq · Led by <a href="/founder.html">Abdul Azeem</a></div>
+        <div><a href="/index.html">Home</a> · <a href="https://wa.me/917200078603" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/js/site.js" defer></script>
+</body>
+</html>
