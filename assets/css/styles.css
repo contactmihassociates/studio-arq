@@ -2287,9 +2287,37 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* Visible skip-to-content link (only on focus) */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: var(--space-3);
+  z-index: 100;
+  padding: 12px 20px;
+  background: var(--grad-brand);
+  color: var(--navy-900);
+  border-radius: 999px;
+  font-size: var(--step--1);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: top 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+.skip-link:focus {
+  top: var(--space-3);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  outline: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
+  .splash { display: none; }
+  .hero__marquee-track { animation: none; }
+  .hero__scroll::after { animation: none; }
 }
