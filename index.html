@@ -29,9 +29,14 @@
   <meta name="msapplication-TileColor" content="#0B2545" />
   <meta name="color-scheme" content="dark" />
 
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Preload the first hero slide for fastest LCP -->
+  <link rel="preload" as="image" href="assets/img/projects/akp-illam/0081.jpg" fetchpriority="high" />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
 
@@ -170,7 +175,7 @@
     <!-- ==================== HERO ==================== -->
     <section class="hero" aria-label="Introduction">
       <div class="hero__bg" id="heroSlideshow">
-        <div class="slide is-active"><img src="assets/img/projects/akp-illam/0081.jpg" alt="AKP Illam — modern residential exterior" /></div>
+        <div class="slide is-active"><img src="assets/img/projects/akp-illam/0081.jpg" alt="AKP Illam — modern residential exterior" fetchpriority="high" decoding="async" /></div>
         <div class="slide"><img src="assets/img/projects/hussain-haji-kattupakam/0119.jpg" alt="Hussain Haji project — corten facade with vertical garden" /></div>
         <div class="slide"><img src="assets/img/projects/bloom-apartments/0080.jpg" alt="Bloom Apartments — residential apartment block" /></div>
         <div class="slide"><img src="assets/img/projects/jp-pet-hospital/0066.jpg" alt="JP Pet Hospital — clinic facade" /></div>
