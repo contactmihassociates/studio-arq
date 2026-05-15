@@ -1435,6 +1435,98 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 }
 
 /* =========================================
+   Experience-by-location arc
+   ========================================= */
+.geo {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-7);
+  align-items: stretch;
+}
+@media (min-width: 900px) { .geo { grid-template-columns: 1fr 1fr; } }
+
+.geo__map {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: radial-gradient(120% 80% at 50% 0%, rgba(58,175,228,0.18), transparent 60%),
+              linear-gradient(180deg, var(--navy-800), var(--navy-900));
+  border: 1px solid var(--line);
+  padding: var(--space-7) var(--space-5);
+  overflow: hidden;
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+}
+.geo__svg {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  display: block;
+}
+.geo__svg .stroke   { fill: none; stroke: rgba(255,255,255,0.18); stroke-width: 1; }
+.geo__svg .arc      { fill: none; stroke: url(#geo-grad); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 360; stroke-dashoffset: 360; animation: arcDraw 2.4s var(--ease-out) 0.4s forwards; }
+.geo__svg .pin      { fill: var(--green-bright); }
+.geo__svg .pin--jed { fill: var(--aqua-bright); }
+.geo__svg .pin-ring { fill: none; stroke: var(--green-bright); stroke-width: 1; opacity: 0.5; animation: pinPulse 2s ease-in-out infinite; }
+.geo__svg .pin-ring--jed { stroke: var(--aqua-bright); }
+.geo__svg .label    { font-family: var(--font-mono); font-size: 8px; fill: rgba(255,255,255,0.7); letter-spacing: 0.18em; text-transform: uppercase; }
+.geo__svg .label--big { font-family: var(--font-display); font-size: 13px; fill: var(--white); letter-spacing: -0.01em; text-transform: none; }
+@keyframes arcDraw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes pinPulse {
+  0%, 100% { r: 7; opacity: 0.5; }
+  50%      { r: 13; opacity: 0; }
+}
+
+.geo__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.geo__city {
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.02);
+  transition: all 250ms var(--ease-out);
+}
+.geo__city:hover {
+  border-color: rgba(92,198,131,0.5);
+  background: rgba(92,198,131,0.04);
+  transform: translateX(4px);
+}
+.geo__city h4 {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  margin: 0 0 var(--space-3);
+}
+.geo__city h4 .country {
+  font-family: var(--font-body);
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.geo__city ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-2); }
+.geo__city li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: var(--space-3);
+  font-size: var(--step--1);
+}
+.geo__city li .yrs {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--aqua-bright);
+  letter-spacing: 0.12em;
+}
+.geo__city li .what { color: rgba(255,255,255,0.8); }
+
+/* =========================================
    Skills + tools grid (founder page)
    ========================================= */
 .skills-section {
