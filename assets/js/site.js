@@ -265,6 +265,102 @@
     }
   })();
 
+  /* ----- 'Recently viewed' tracker + homepage rail ----------- */
+  (function recentlyViewed() {
+    const STORE_KEY = "arq.recent.v1";
+    const MAX = 6;
+
+    let storage = null;
+    try { storage = window.localStorage; storage.setItem("__t", "1"); storage.removeItem("__t"); }
+    catch (e) { return; }
+
+    function read() {
+      try { return JSON.parse(storage.getItem(STORE_KEY) || "[]"); } catch (e) { return []; }
+    }
+    function write(arr) { try { storage.setItem(STORE_KEY, JSON.stringify(arr)); } catch (e) {} }
+
+    function relTime(ts) {
+      const mins = Math.floor((Date.now() - ts) / 60000);
+      if (mins < 1)   return "just now";
+      if (mins < 60)  return mins + "m ago";
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24)   return hrs + "h ago";
+      const days = Math.floor(hrs / 24);
+      if (days < 7)   return days + "d ago";
+      return Math.floor(days / 7) + "w ago";
+    }
+
+    // --- track current page if it's a project ---
+    const slug = document.body && document.body.dataset && document.body.dataset.slug;
+    if (slug && window.ARQ_PROJECTS) {
+      const proj = window.ARQ_PROJECTS.find(function (p) { return p.slug === slug; });
+      if (proj) {
+        const list = read().filter(function (e) { return e.slug !== slug; });
+        list.unshift({
+          slug: proj.slug,
+          title: proj.title,
+          sector: proj.sector,
+          img: "/assets/img/projects/" + proj.slug + "/" + proj.images[0] + ".jpg",
+          ts: Date.now()
+        });
+        write(list.slice(0, MAX));
+      }
+    }
+
+    // --- render rail on the homepage ---
+    function isHomepage() {
+      const p = window.location.pathname;
+      return p === "/" || p === "/index.html";
+    }
+    if (!isHomepage()) return;
+
+    const items = read();
+    if (!items.length) return;
+
+    // Insert after the .now-strip (or before the first section if missing)
+    const anchor = document.querySelector(".now-strip") || document.querySelector("main > section.section");
+    if (!anchor) return;
+
+    const section = document.createElement("section");
+    section.className = "section";
+    section.setAttribute("aria-label", "Recently viewed projects");
+    section.innerHTML =
+      '<div class="container">' +
+        '<div class="recent-rail">' +
+          '<div class="recent-rail__head">' +
+            '<div>' +
+              '<span class="eyebrow">Continue where you left off</span>' +
+              '<h3>Your <span class="gradient-text">recently viewed</span> projects</h3>' +
+            '</div>' +
+            '<button class="reset" type="button" data-recent-clear>Clear</button>' +
+          '</div>' +
+          '<div class="recent-rail__scroll"></div>' +
+        '</div>' +
+      '</div>';
+
+    const scroll = section.querySelector(".recent-rail__scroll");
+    items.forEach(function (it) {
+      const a = document.createElement("a");
+      a.className = "recent-card";
+      a.href = "projects/" + it.slug + ".html";
+      a.innerHTML =
+        '<img src="' + it.img + '" alt="' + it.title + '" loading="lazy" width="800" height="1000" />' +
+        '<span class="recent-card__when">' + relTime(it.ts) + '</span>' +
+        '<div class="recent-card__body">' +
+          '<span class="recent-card__sector">' + it.sector + '</span>' +
+          '<h4 class="recent-card__title">' + it.title + '</h4>' +
+        '</div>';
+      scroll.appendChild(a);
+    });
+
+    anchor.parentNode.insertBefore(section, anchor.nextSibling);
+
+    section.querySelector("[data-recent-clear]").addEventListener("click", function () {
+      try { storage.removeItem(STORE_KEY); } catch (e) {}
+      section.remove();
+    });
+  })();
+
   /* ----- per-tool input autosave (localStorage) -------------- */
   (function injectAutosave() {
     const path = window.location.pathname;
