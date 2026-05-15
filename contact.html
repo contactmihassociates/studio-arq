@@ -125,6 +125,10 @@
           </div>
 
           <form class="form reveal" id="contactForm" novalidate data-delay="200">
+            <!-- Honeypot: bots fill everything, humans see nothing -->
+            <div class="hp-field" aria-hidden="true">
+              <label>Leave this blank<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+            </div>
             <div class="row two">
               <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" required autocomplete="name" /></div>
               <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>

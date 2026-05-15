@@ -902,6 +902,18 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 .field textarea { min-height: 140px; resize: vertical; }
 .field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--aqua) 50%), linear-gradient(135deg, var(--aqua) 50%, transparent 50%); background-position: right 18px top 22px, right 12px top 22px; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 36px; }
 
+/* Honeypot: hidden from humans + assistive tech, visible to bots */
+.hp-field {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* =========================================
    Footer
    ========================================= */

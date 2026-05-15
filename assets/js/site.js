@@ -595,6 +595,15 @@
   if (form) {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      // Honeypot: if the hidden field has any value, a bot filled it.
+      // Silently 'succeed' to look fine to the bot, but send nothing.
+      const hp = form.querySelector('[name="company_website"]');
+      if (hp && hp.value) {
+        const sStatus = $("#formStatus");
+        if (sStatus) sStatus.textContent = "Thanks — we'll reply within 48 hours.";
+        form.reset();
+        return;
+      }
       const status = $("#formStatus");
       if (!form.checkValidity()) {
         if (status) {

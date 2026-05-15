@@ -81,6 +81,10 @@
 
     <section class="section">
       <div class="container container--narrow">
+        <!-- Honeypot: bots fill everything, humans see nothing -->
+        <div class="hp-field" aria-hidden="true">
+          <label>Leave this blank<input id="wiz-honeypot" type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+        </div>
         <div class="wiz" id="quoteWiz">
           <div class="wiz__steps" aria-hidden="true">
             <span class="wiz__step-dot is-active"></span>
@@ -357,8 +361,24 @@
         document.getElementById('wizSendWa').href = 'https://wa.me/917200078603?text=' + encodeURIComponent('Hi Abdul — quotation request from studioarq.com\n\n' + body);
       }
 
-      document.getElementById('wizSendEmail').addEventListener('click', function () { setTimeout(function () { setStep(6); }, 200); });
-      document.getElementById('wizSendWa').addEventListener('click', function () { setTimeout(function () { setStep(6); }, 200); });
+      function honeypotTrip(e) {
+        var hp = document.getElementById('wiz-honeypot');
+        if (hp && hp.value) {
+          // Bot — block both the real send (preventDefault) and jump straight to success state
+          e.preventDefault();
+          setStep(6);
+          return true;
+        }
+        return false;
+      }
+      document.getElementById('wizSendEmail').addEventListener('click', function (e) {
+        if (honeypotTrip(e)) return;
+        setTimeout(function () { setStep(6); }, 200);
+      });
+      document.getElementById('wizSendWa').addEventListener('click', function (e) {
+        if (honeypotTrip(e)) return;
+        setTimeout(function () { setStep(6); }, 200);
+      });
 
       validate();
     });
