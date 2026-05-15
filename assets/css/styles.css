@@ -3207,6 +3207,102 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
   outline: none;
 }
 
+/* =========================================
+   Print stylesheet
+   ========================================= */
+@media print {
+  /* Hide all chrome that isn't useful on paper */
+  .site-header,
+  .footer,
+  .wa-fab,
+  .to-top,
+  .scroll-progress,
+  .nav-toggle,
+  .crumbs,
+  .splash,
+  .hero__marquee,
+  .hero__scroll,
+  .bg-grid,
+  .bg-grain,
+  .float-shape,
+  .cursor-dot,
+  .cursor-ring,
+  .skip-link,
+  .award-badge,
+  .shipped,
+  .led-by,
+  noscript { display: none !important; }
+
+  /* Reset the dark theme to ink-on-white for paper */
+  html, body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  body, .container, .section, .container--narrow, .container--wide {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  body { font-size: 11pt; line-height: 1.4; }
+  h1, h2, h3, h4, h5, .gradient-text,
+  .est-out__val, .tool-out__hero .val, .big-stat__num, .stat .num {
+    color: #000 !important;
+    background: none !important;
+    -webkit-text-fill-color: #000 !important;
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+  /* Show the URL after links so printed pages are useful offline */
+  main a[href^="http"]::after,
+  main a[href^="/"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+    word-break: break-all;
+  }
+  /* Strip the dark backgrounds from tool result panels */
+  .tool-out, .tool-out__rows, .tool-shell,
+  .est-out, .est-out__row, .est-out__lists,
+  .big-stats, .big-stat,
+  .voice-card, .portrait-card, .reply-strip,
+  .now-strip, .manifesto, .differ, .service, .process__step,
+  .footer__bottom, .map-card, .map-card__embed {
+    background: none !important;
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+  }
+  .map-card__embed iframe { display: none; }
+  /* Keep gallery / portrait images but desaturate */
+  img { filter: grayscale(0.4); max-width: 100% !important; height: auto !important; }
+  /* Page break hints */
+  .section, .tool-out, .gallery__item, .project-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  /* Header on every printed page */
+  body::before {
+    content: "studio arq · architecture & interiors · +91 7200 078 603 · studioarq.com";
+    display: block;
+    font-size: 9pt;
+    color: #444;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+    margin-bottom: 18px;
+  }
+  /* Hero on tools: simplify */
+  .hero, .project-hero {
+    min-height: auto !important;
+    padding: 0 !important;
+    background: none !important;
+  }
+  .hero__bg, .project-hero .hero__bg { display: none !important; }
+  .hero__actions, .hero__meta { display: none !important; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
