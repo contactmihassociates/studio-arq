@@ -1,41 +1,93 @@
-# Studio ARQ — Website
+# studio arqs — website
 
-A boutique architectural-practice site for **Studio ARQ** (Chennai), built as a static HTML/CSS/JS bundle that can be hosted on any plain web host (GitHub Pages, Netlify, Cloudflare Pages, S3, etc.).
+A boutique architectural-practice site for **studio arqs** (Chennai),
+led by **Abdul Azeem** ([LinkedIn](https://in.linkedin.com/in/abd-al-azeem) ·
+[Instagram @studio_arqs](https://www.instagram.com/studio_arqs)).
 
-The site is intentionally framework-free so you can hand-edit content without a build step.
+Built as a static HTML / CSS / JS bundle — no build step. Host it on
+any plain web host (GitHub Pages, Netlify, Cloudflare Pages, S3).
 
-## 1. Folder layout
+## Live preview
+
+```bash
+cd site
+python -m http.server 8000
+# open http://localhost:8000
+```
+
+## Folder layout
 
 ```
 site/
-├─ index.html                 ← landing page (hero, manifesto, services, projects, testimonials, FAQ, contact)
-├─ portfolio.html             ← full portfolio (all 6 projects with their galleries)
-├─ about.html                 ← studio profile (extend this for a personal portfolio later)
-├─ services.html              ← services & engagement models
-├─ contact.html               ← standalone contact form
+├─ index.html              ← landing
+├─ portfolio.html          ← full portfolio (all 6 projects, masonry galleries)
+├─ founder.html            ← Abdul Azeem — bio, skills, geo arc, timeline
+├─ about.html              ← studio profile
+├─ services.html           ← services & engagement models
+├─ contact.html            ← enquiry form
 ├─ projects/
-│  ├─ akp-illam.html
-│  ├─ hussain-haji-kattupakam.html
-│  ├─ bloom-apartments.html
-│  ├─ jp-pet-hospital.html
-│  ├─ nh44-restaurant.html
-│  └─ interiors.html
+│  ├─ akp-illam.html              (34 renders)
+│  ├─ hussain-haji-kattupakam.html (6)
+│  ├─ bloom-apartments.html       (2)
+│  ├─ jp-pet-hospital.html        (6)
+│  ├─ nh44-restaurant.html        (2)
+│  └─ interiors.html              (28)
 ├─ sitemap.xml
 ├─ robots.txt
 └─ assets/
-   ├─ css/styles.css
+   ├─ css/styles.css      ← single design-system stylesheet
    ├─ js/
-   │  ├─ site.js              ← header, splash, scroll progress, lightbox, filters, cursor, back-to-top
-   │  ├─ gallery-data.js      ← master list of projects + images (one source of truth)
-   │  └─ project-page.js      ← renders each project detail page from gallery-data.js
+   │  ├─ site.js          ← header, splash, scroll progress, lightbox, filters, cursor, back-to-top
+   │  ├─ gallery-data.js  ← master list of projects + ARQ_DEFAULTS (lead architect + tools)
+   │  └─ project-page.js  ← renders each project detail from gallery-data.js
    └─ img/
-      ├─ brand/               ← favicon + Instagram QR + logo
-      └─ projects/<slug>/     ← all renders, one folder per project
+      ├─ brand/           ← logo.jpg, logo-sm.png, logo-mark.svg, favicon.svg, instagram-qr.jpg
+      └─ projects/<slug>/ ← project renders, one folder per project
 ```
 
-## 2. Adding a new project
+## v1 → v10 — what shipped after the LinkedIn discovery
 
-1. Drop the renders into `assets/img/projects/<your-slug>/`. Filenames can be anything — convention here is `0001.jpg`, `0002.jpg`, …
+After watching a screen recording of Abdul Azeem's LinkedIn profile,
+the site went through 10 focused versions:
+
+| Version | Commit | What landed |
+|---|---|---|
+| v1 | `d9439a9` | Rebrand `Studio ARQ` → `studio arqs`; SVG logo mark replaces the text 'a'; splash uses the actual logo SVG; logo-sm.png raster generated |
+| v2 | `1022878` | Founder-page **Skills & toolchain** block — top skills, expertise list, software stack, credential IDs, all from the verified profile |
+| v3 | `9a9ffa8` | **Chennai ↔ Jeddah** career-arc section — animated SVG map + three location cards listing every role and year |
+| v4 | `c3e5c51` | Hero typography polish — new headline with `<em>` brand-gradient emphasis, founder credit in the lead paragraph, secondary CTA points to /founder.html |
+| v5 | `f923e1b` | Project pages now show **Lead architect: Abdul Azeem** and **Tools used: Revit · AutoCAD · SketchUp · Twin Motion**, driven by `ARQ_DEFAULTS` so new projects auto-inherit |
+| v6 | `f56fb82` | **Numbers that matter** big-stats grid — `13+ yrs`, `CA/2012/57306`, `2019 Revit cert.`, `40+ projects` with hover gradient bars |
+| v7 | `a930496` | Splash screen now shows the full `logo.jpg` (not just the mark); favicon SVG redrawn to read 'as' in white + gradient |
+| v8 | `edf48a1` | Footer **Brand kit** — downloadable logo files, 4-swatch palette, 3-font typography card |
+| v9 | `4eebba7` | `lang="en-IN"`, canonical URLs, apple-touch-icon, slide-in skip-to-content link, `prefers-reduced-motion` disables splash/marquee/cursor animations |
+| v10 | (this commit) | Skip-link + `<main id="main">` consistent on every page; this README refresh; final cross-page verification |
+
+## Verified founder facts (used throughout the site)
+
+All copy on the site is sourced from the LinkedIn profile of
+**Abdul Azeem . S . A**:
+
+- **Title:** Principal Architect at studio arqs (since Apr 2024;
+  Senior Architect Apr 2019 – Mar 2024, 5 yrs total tenure)
+- **Education:** B.Arch in Architecture & Interior Design,
+  **MEASI Academy of Architecture**, 2006 – 2011
+- **Registration:** **Council of Architecture, India** — credential
+  **CA/2012/57306**, issued Oct 2012
+- **Software certification:** Autodesk Revit Architecture 2019 (wCrJd-48bp)
+- **13+ years experience** spanning:
+  - Chennai 2010 — Architectural Intern · Eta Star Properties & Developers
+  - Chennai 2011 – 2012 — Junior Architect · KKR Architects
+  - Jeddah 2013 — Designer · ALUMCO
+  - Jeddah 2013 – 2019 — Architect · SAUDI ABV General Contractors (5y 7m)
+  - Chennai 2019 — now — studio arqs (Senior → Principal Architect)
+- **Skills:** Building Design · Project Management · AutoCAD · Shop
+  Drawings · MS Office (top 5 of 31 listed)
+- **Tools:** AutoCAD · Revit · SketchUp · Twin Motion · MS Office
+
+## Adding a new project
+
+1. Drop renders into `assets/img/projects/<slug>/`.
 2. Add a new entry to `window.ARQ_PROJECTS` in `assets/js/gallery-data.js`:
 
    ```js
@@ -44,54 +96,44 @@ site/
      title: "Project Name",
      sector: "Residential",
      location: "City, State",
-     summary: "One-line description shown on the project page hero.",
+     summary: "One-line description.",
      year: "2026",
      href: "projects/your-slug.html",
      images: ["0001","0002","0003"]
+     // optional per-project overrides:
+     // lead: "Abdul Azeem · Principal Architect",
+     // tools: ["Revit","AutoCAD","SketchUp"]
    }
    ```
 
-3. Duplicate any file in `projects/` (e.g. `akp-illam.html`) and:
-   - Change `<body data-slug="...">` to your new slug.
-   - Update the `<title>`, `<meta description>` and the static `<img src="">` in `.project-hero .hero__bg`.
-4. Optionally add the new project as a card to `index.html` → `#projects` and to `portfolio.html`.
+3. Duplicate `projects/akp-illam.html`, change the `data-slug` attribute,
+   `<title>`, `<meta description>` and the static hero `<img src>`.
+4. Optionally add a project card to `index.html` → `#projects` and a
+   section to `portfolio.html`.
 
-That's it — the gallery, related-projects and meta will auto-populate from `gallery-data.js`.
+The gallery, related-projects, **Lead architect**, and **Tools** rows
+all auto-populate from `gallery-data.js` defaults.
 
-## 3. Brand palette (sampled from the logo)
+## Brand palette (from the logo)
 
-| Token        | Value     | Use                              |
-|--------------|-----------|----------------------------------|
-| `--navy-900` | `#061A33` | Page background                  |
-| `--navy-800` | `#0B2545` | Card / surface background        |
-| `--aqua`     | `#3AAFE4` | Accent (cyan from logo S)        |
-| `--green`    | `#5CC683` | Accent (green from logo S)       |
-| `--grad-brand` | green → aqua linear-gradient | Headings, buttons, pulses |
+| Token         | Value     | Use                          |
+|---------------|-----------|------------------------------|
+| `--navy-900`  | `#061A33` | Page background              |
+| `--navy-800`  | `#0B2545` | Card / surface background    |
+| `--aqua`      | `#3AAFE4` | Accent (cyan from logo S)    |
+| `--green`     | `#5CC683` | Accent (green from logo S)   |
+| `--grad-brand`| green → aqua linear-gradient | Buttons, headings, pulses |
 
-Fonts: **Cormorant Garamond** (display) + **Inter** (body) + **JetBrains Mono** (small monospace eyebrow numbers).
+Fonts: **Cormorant Garamond** (display) + **Inter** (body) +
+**JetBrains Mono** (mono accents).
 
-## 4. Local preview
+## Deploy
 
-Any static server works. Easiest:
+- **GitHub Pages**: Settings → Pages → Source: `main` / `(root)` — site
+  is live at `https://<user>.github.io/studio-arq/`.
+- **Netlify / Cloudflare Pages / Vercel**: connect this repo, no build
+  command, output dir `/`.
+- **Custom domain**: drop a `CNAME` file at the repo root and point DNS
+  to your host.
 
-```bash
-cd site
-python -m http.server 8000
-# → open http://localhost:8000
-```
-
-## 5. Where the WhatsApp images live
-
-The original WhatsApp export sits at `../whatsapp_extract/` (outside the `site/` folder). The 78 images sent on 2 May 2026 (11:34 – 11:45 AM IST) have been categorised and copied into `assets/img/projects/<slug>/`. The folder is the source of truth for the site — you can safely delete the original `whatsapp_extract/` archive once you're happy.
-
-## 6. Roadmap (turning this into a personal portfolio)
-
-The structure is ready to grow into an architect's portfolio:
-
-- `about.html` — already has Story, Principles, Recognition sections. Add a "Team" block + photo.
-- `services.html` — pricing, engagement models, ready to add a downloadable PDF rate card.
-- `contact.html` — full enquiry form with budget tiers.
-- `gallery-data.js` — single file controls all projects everywhere.
-- The CSS design system (`styles.css`) is component-based: `card`, `section`, `gallery`, `service`, `process__step`, `testimonial`, `awards__item`, `faq__item`. Reuse them rather than writing new CSS.
-
-That's the whole thing. No build step, no framework, no surprise.
+No build step, no framework, no surprise.
