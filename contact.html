@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Contact — Studio ARQ</title>
+  <meta name="description" content="Start a project with Studio ARQ — fill the form or write to hello@studioarq.com. Replies within 48 hours." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Studio ARQ",
+    "url": "https://studioarq.com/contact.html"
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="index.html" class="brand"><span class="brand-mark" aria-hidden="true">a</span><span class="brand-text"><span class="arq">arq</span><span class="studio">studio</span></span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="index.html#projects">Work</a>
+        <a href="about.html">Studio</a>
+        <a href="founder.html">Founder</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html" class="is-active">Contact</a>
+        <a href="portfolio.html">Portfolio</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1h20M1 7h20M1 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="hero__bg"><img src="assets/img/projects/hussain-haji-kattupakam/0119.jpg" alt="" /></div>
+      <div class="container">
+        <span class="eyebrow">Contact</span>
+        <h1>Tell us about <span class="gradient-text">your space.</span></h1>
+        <p class="lead" style="max-width:640px;">A site plan, a Pinterest board, a one-line dream — whatever you have, send it over. Every enquiry gets a reply within 48 hours from a real person on the studio team.</p>
+      </div>
+    </section>
+
+    <section class="section contact">
+      <div class="container">
+        <div class="contact__inner">
+          <div class="contact__lead">
+            <span class="eyebrow">Studio</span>
+            <h2 class="reveal">Reach out, <span class="gradient-text">directly</span>.</h2>
+            <p class="reveal" data-delay="100">We're a small team — the principal usually replies in person within a working day, sometimes the same evening.</p>
+
+            <div class="contact__details">
+              <div class="reveal" data-delay="200">
+                <div class="label">Studio</div>
+                <div>Chennai, Tamil Nadu, India</div>
+              </div>
+              <div class="reveal" data-delay="300">
+                <div class="label">Email</div>
+                <div><a href="mailto:hello@studioarq.com">hello@studioarq.com</a></div>
+              </div>
+              <div class="reveal" data-delay="300">
+                <div class="label">Instagram</div>
+                <div><a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+              </div>
+              <div class="reveal" data-delay="350">
+                <div class="label">LinkedIn</div>
+                <div><a href="https://in.linkedin.com/in/abd-al-azeem" target="_blank" rel="noopener">Abd Al Azeem · Founder</a></div>
+              </div>
+              <div class="reveal" data-delay="400">
+                <div class="label">Hours</div>
+                <div>Mon — Sat · 10:00 – 19:00 IST</div>
+              </div>
+            </div>
+          </div>
+
+          <form class="form reveal" id="contactForm" novalidate data-delay="200">
+            <div class="row two">
+              <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" required autocomplete="name" /></div>
+              <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>
+            </div>
+            <div class="row two">
+              <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
+              <div class="field">
+                <label for="f-type">Project type</label>
+                <select id="f-type" name="type" required>
+                  <option value="" disabled selected>Select…</option>
+                  <option>Private residence</option>
+                  <option>Apartment / Mixed-use</option>
+                  <option>Hospitality / F&amp;B</option>
+                  <option>Commercial / Healthcare</option>
+                  <option>Interior design only</option>
+                  <option>3D visualisation only</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="f-budget">Approximate budget (optional)</label>
+              <select id="f-budget" name="budget">
+                <option value="" disabled selected>Select…</option>
+                <option>Under ₹15 L</option>
+                <option>₹15 L – ₹50 L</option>
+                <option>₹50 L – ₹1 Cr</option>
+                <option>₹1 Cr – ₹3 Cr</option>
+                <option>Above ₹3 Cr</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-msg">Tell us about your project</label>
+              <textarea id="f-msg" name="message" rows="4" required placeholder="Plot size, location, what you'd like to build…"></textarea>
+            </div>
+            <div>
+              <button type="submit" class="btn btn--primary btn--icon">Send enquiry</button>
+            </div>
+            <p class="form-status" id="formStatus" role="status" style="margin:0;font-size:var(--step--1);color:var(--green-bright);"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> Studio ARQ · Led by <a href="founder.html">Abd Al Azeem</a></div>
+        <div><a href="index.html">Home</a> · <a href="https://in.linkedin.com/in/abd-al-azeem" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>

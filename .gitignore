@@ -1,0 +1,19 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*.bak
+.vscode/
+.idea/
+
+# Local logs / temp
+*.log
+*.tmp
+.cache/
+
+# Don't ship the raw WhatsApp export — only the curated images that already
+# live under assets/img/projects/*
+whatsapp_extract/
+*.zip

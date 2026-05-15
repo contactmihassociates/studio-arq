@@ -1,0 +1,100 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>NH 44 Highway Restaurant — Studio ARQ</title>
+  <meta name="description" content="NH 44 Highway Restaurant — a tensile-canopy outdoor hospitality plaza on the NH 44 corridor. Designed by Studio ARQ." />
+  <meta name="theme-color" content="#0B2545" />
+  <link rel="icon" type="image/svg+xml" href="../assets/img/brand/favicon.svg" /><link rel="alternate icon" type="image/jpeg" href="../assets/img/brand/logo.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body data-slug="nh44-restaurant">
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <a href="../index.html" class="brand"><span class="brand-mark" aria-hidden="true">a</span><span class="brand-text"><span class="arq">arq</span><span class="studio">studio</span></span></a>
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="../index.html#projects">Work</a>
+        <a href="../about.html">Studio</a>
+        <a href="../founder.html">Founder</a>
+        <a href="../services.html">Services</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../portfolio.html">Portfolio</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle navigation">
+        <svg width="22" height="14" viewBox="0 0 22 14" fill="none" aria-hidden="true"><path d="M1 1h20M1 7h20M1 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="project-hero">
+      <div class="hero__bg"><img src="../assets/img/projects/nh44-restaurant/0076.jpg" alt="NH 44 Restaurant hero" /></div>
+      <div class="container">
+        <span class="eyebrow" data-bind="sector">Residential</span>
+        <h1 data-bind="title">Project</h1>
+        <p class="lead" data-bind="summary" style="max-width:640px;"></p>
+        <dl class="meta-row">
+          <div><dt>Location</dt><dd data-bind="location"></dd></div>
+          <div><dt>Sector</dt><dd data-bind="sector"></dd></div>
+          <div><dt>Year</dt><dd data-bind="year"></dd></div>
+          <div><dt>Renders in this set</dt><dd><span data-bind="imgCount"></span></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">The Gallery</span>
+            <h2>Renders &amp; <span class="gradient-text">studies</span></h2>
+          </div>
+          <p>Tap any image to view it full-screen. Use ← / → to step through the set.</p>
+        </div>
+        <div class="gallery gallery--masonry" data-bind="gallery"></div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section section--tight">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">More work</span>
+            <h2>Related <span class="gradient-text">projects</span></h2>
+          </div>
+          <p><a href="../portfolio.html" class="btn btn--sm btn--icon">View full portfolio</a></p>
+        </div>
+        <div class="related projects-grid" data-bind="related"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <div>© <span id="year"></span> Studio ARQ · Led by <a href="../founder.html">Abd Al Azeem</a></div>
+        <div><a href="../index.html">Home</a> · <a href="https://in.linkedin.com/in/abd-al-azeem" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://www.instagram.com/studio_arqs" target="_blank" rel="noopener">@studio_arqs</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer" aria-hidden="true">
+    <button class="lightbox__close" id="lbClose" aria-label="Close">×</button>
+    <button class="lightbox__prev" id="lbPrev" aria-label="Previous image">‹</button>
+    <button class="lightbox__next" id="lbNext" aria-label="Next image">›</button>
+    <img id="lbImage" src="" alt="" />
+    <div class="lightbox__caption" id="lbCaption"></div>
+  </div>
+
+  <script src="../assets/js/gallery-data.js" defer></script>
+  <script src="../assets/js/project-page.js" defer></script>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>
+
