@@ -265,6 +265,140 @@
     }
   })();
 
+  /* ----- 'Try this next' on every tool page ------------------ */
+  (function injectToolNext() {
+    const path = window.location.pathname;
+    if (path.indexOf("/tools/") !== 0 || path === "/tools/" || path === "/tools/index.html") return;
+    const slug = (path.split("/").pop() || "").replace(".html", "");
+
+    // Each tool → ordered list of suggestions (primary first)
+    const NEXT = {
+      "cost-estimator": [
+        { slug: "emi",         primary: true,  title: "Calculate the EMI",       desc: "Plug the cost as a loan amount → monthly outgo & total interest." },
+        { slug: "materials",   primary: false, title: "Material breakdown",      desc: "Cement, steel, sand, brick quantities for your built-up area." },
+        { slug: "quote",       primary: false, title: "Get a real proposal",     desc: "5-step wizard → fixed-price quote from Abdul in 48h." }
+      ],
+      "design-fee": [
+        { slug: "cost-estimator", primary: true, title: "Construction cost",      desc: "Pair the fee with a build-cost ballpark for total project value." },
+        { slug: "quote",          primary: false, title: "Get a real proposal",   desc: "Drop your brief — Abdul replies with a fixed-price proposal." },
+        { slug: "timeline",       primary: false, title: "Build timeline",        desc: "Gantt-style view of design → build → hand-over." }
+      ],
+      "area-converter": [
+        { slug: "fsi",            primary: true, title: "Permissible build",     desc: "How much can you legally build on this plot in Chennai?" },
+        { slug: "cost-estimator", primary: false, title: "Project cost",         desc: "Built-up area + project type → ballpark INR + timeline." },
+        { slug: "room-sizes",     primary: false, title: "Standard room sizes",  desc: "Indian residential dimensions — minimum, comfortable, generous." }
+      ],
+      "emi": [
+        { slug: "cost-estimator", primary: true, title: "Construction cost",     desc: "Estimate the project budget first, then come back here." },
+        { slug: "stamp-duty",     primary: false, title: "Stamp duty (TN)",      desc: "Don't forget 7% + 4% on the registered value." },
+        { slug: "quote",          primary: false, title: "Get a real proposal",  desc: "Lock in the numbers with a proposal from the studio." }
+      ],
+      "fsi": [
+        { slug: "cost-estimator", primary: true, title: "Cost the build",        desc: "Multiply the permissible area by a per-sqft rate." },
+        { slug: "design-fee",     primary: false, title: "Architect fee",        desc: "Design-fee scaled to your build value." },
+        { slug: "area-converter", primary: false, title: "Carpet ↔ BUA ↔ Super", desc: "Convert between Indian area conventions." }
+      ],
+      "stamp-duty": [
+        { slug: "emi",            primary: true,  title: "EMI calculator",       desc: "Some lenders include stamp duty in the loan — see the EMI hit." },
+        { slug: "cost-estimator", primary: false, title: "Construction cost",    desc: "Sale value of a built property = land + construction." },
+        { slug: "quote",          primary: false, title: "Get a real proposal",  desc: "Talk to Abdul about the next steps after registration." }
+      ],
+      "materials": [
+        { slug: "cost-estimator", primary: true,  title: "Full project cost",    desc: "Materials are only ~30% — see the total build cost." },
+        { slug: "design-fee",     primary: false, title: "Architect fee",        desc: "Add the design fee to your BOQ for a complete budget." },
+        { slug: "paint",          primary: false, title: "Paint quantity",      desc: "Once walls are up — how much paint do you need?" }
+      ],
+      "paint": [
+        { slug: "tiles",          primary: true,  title: "Tile / flooring",      desc: "Floor area × tile size → number of pieces + boxes." },
+        { slug: "materials",      primary: false, title: "Material quantity",   desc: "Bigger BOQ — cement, steel, sand, bricks." },
+        { slug: "lighting",       primary: false, title: "Lighting / lumens",   desc: "How much light does each room need?" }
+      ],
+      "tiles": [
+        { slug: "paint",          primary: true,  title: "Paint quantity",      desc: "Other finish — how much paint for the same walls?" },
+        { slug: "materials",      primary: false, title: "Material quantity",   desc: "Wider BOQ for the structural shell." },
+        { slug: "cost-estimator", primary: false, title: "Total project cost",  desc: "All-in indicative range for the whole build." }
+      ],
+      "room-sizes": [
+        { slug: "vastu",          primary: true,  title: "Vastu direction",     desc: "Where to place each room you've just sized." },
+        { slug: "area-converter", primary: false, title: "Area converter",      desc: "Convert your total to carpet / built-up / super." },
+        { slug: "lighting",       primary: false, title: "Lighting / lumens",   desc: "Lumens needed per room use." }
+      ],
+      "lighting": [
+        { slug: "room-sizes",     primary: true,  title: "Room sizes",          desc: "Standard Indian residential room dimensions." },
+        { slug: "paint",          primary: false, title: "Paint quantity",      desc: "Pair lighting with finish colour choices." },
+        { slug: "vastu",          primary: false, title: "Vastu direction",    desc: "Direction-based room placement guide." }
+      ],
+      "vastu": [
+        { slug: "room-sizes",     primary: true,  title: "Standard room sizes", desc: "Pair vastu placement with realistic room sizes." },
+        { slug: "lighting",       primary: false, title: "Lighting / lumens",   desc: "Direction-aware lighting plans." },
+        { slug: "quote",          primary: false, title: "Get a real proposal", desc: "Vastu + design under one roof — talk to Abdul." }
+      ],
+      "timeline": [
+        { slug: "cost-estimator", primary: true,  title: "Construction cost",    desc: "Cost the project alongside the timeline." },
+        { slug: "design-fee",     primary: false, title: "Architect fee",        desc: "Design fee as % of construction value." },
+        { slug: "quote",          primary: false, title: "Get a real proposal",  desc: "Lock in a timeline + fee in one proposal." }
+      ],
+      "quote": [
+        { slug: "cost-estimator", primary: true,  title: "Cost estimator",       desc: "Get a ballpark first, then drop the brief in the wizard." },
+        { slug: "design-fee",     primary: false, title: "Design fee",           desc: "What does an architect actually charge?" },
+        { slug: "timeline",       primary: false, title: "Build timeline",       desc: "How long does each project type take?" }
+      ]
+    };
+
+    const TITLES = {
+      "cost-estimator": "Project cost estimator",
+      "design-fee":     "Design fee calculator",
+      "area-converter": "Carpet ↔ Built-up ↔ Super",
+      "emi":            "Home loan EMI",
+      "fsi":            "FSI / FAR (Chennai)",
+      "stamp-duty":     "Stamp duty (TN)",
+      "materials":      "Material quantity",
+      "paint":          "Paint quantity",
+      "tiles":          "Tile / flooring",
+      "room-sizes":     "Standard room sizes",
+      "lighting":       "Lighting / lumens",
+      "vastu":          "Vastu direction guide",
+      "timeline":       "Project timeline",
+      "quote":          "Get a quote (5-step wizard)"
+    };
+
+    const items = NEXT[slug];
+    if (!items) return;
+
+    // Find a host element to append after — prefer the .tool-shell, fall back to .wiz
+    const host = document.querySelector(".tool-shell")
+              || document.querySelector(".wiz")
+              || document.querySelector("main section .container");
+    if (!host) return;
+
+    const block = document.createElement("section");
+    block.className = "tool-next";
+    block.setAttribute("aria-label", "Try this next");
+    block.innerHTML =
+      '<div class="tool-next__label">Try this next</div>' +
+      '<div class="tool-next__grid">' +
+        items.map(function (it) {
+          const title = TITLES[it.slug] || it.slug;
+          const href  = it.slug + ".html";
+          return '<a class="tool-next__card' + (it.primary ? ' is-primary' : '') + '" href="' + href + '">' +
+                   '<span class="tool-next__card-eyebrow">' + (it.primary ? "★ Recommended" : "Also useful") + '</span>' +
+                   '<h4>' + it.title + '</h4>' +
+                   '<p>' + it.desc + '</p>' +
+                   '<span class="tool-next__card-arrow" aria-hidden="true">→</span>' +
+                 '</a>';
+        }).join("") +
+      '</div>';
+
+    // Insert inside the same .container right after the tool, so it inherits
+    // the layout grid and section padding.
+    const containerWrap = host.closest(".container") || host.parentElement;
+    if (containerWrap) {
+      containerWrap.appendChild(block);
+    } else {
+      host.parentElement.appendChild(block);
+    }
+  })();
+
   /* ----- universal head meta: PWA + default OG --------------- */
   (function injectHeadMeta() {
     function meta(name, content, isProp) {

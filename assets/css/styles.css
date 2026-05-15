@@ -2220,6 +2220,75 @@ p.lead { font-size: var(--step-1); line-height: 1.55; color: rgba(255,255,255,0.
 }
 
 /* =========================================
+   "Try this next" — cross-tool deeplinks
+   ========================================= */
+.tool-next {
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
+}
+.tool-next__label {
+  font-size: var(--step--2);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--aqua-bright);
+  margin-bottom: var(--space-4);
+}
+.tool-next__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+@media (min-width: 700px)  { .tool-next__grid { grid-template-columns: repeat(3, 1fr); } }
+.tool-next__card {
+  display: block;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.02);
+  text-decoration: none;
+  color: var(--white);
+  position: relative;
+  transition: all 200ms var(--ease-out);
+}
+.tool-next__card:hover {
+  border-color: rgba(58,175,228,0.45);
+  background: rgba(58,175,228,0.05);
+  transform: translateY(-2px);
+}
+.tool-next__card.is-primary {
+  background: var(--grad-brand-soft);
+  border-color: rgba(58,175,228,0.45);
+}
+.tool-next__card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--aqua-bright);
+  display: block;
+  margin-bottom: var(--space-2);
+}
+.tool-next__card h4 {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  margin: 0 0 var(--space-2);
+}
+.tool-next__card p { margin: 0; font-size: var(--step--1); color: rgba(255,255,255,0.65); }
+.tool-next__card-arrow {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.35);
+  transition: transform 200ms var(--ease-out), color 200ms var(--ease-out);
+}
+.tool-next__card:hover .tool-next__card-arrow {
+  color: var(--aqua-bright);
+  transform: translateX(3px);
+}
+
+/* =========================================
    Tool generic — used by every /tools/*.html page
    ========================================= */
 .tools-grid {
