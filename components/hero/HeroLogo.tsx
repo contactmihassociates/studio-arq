@@ -81,7 +81,7 @@ export default function HeroLogo() {
         <text
           x="0"
           y="80"
-          fontFamily="var(--font-cormorant), Georgia, serif"
+          fontFamily="var(--font-display)"
           fontSize="88"
           fontWeight="300"
           letterSpacing="6"
