@@ -11,12 +11,12 @@
   <rect width="64" height="64" rx="14" fill="#0B2545"/>
   <!-- lowercase 'a' shape (logo glyph) -->
   <text x="13" y="42"
-        font-family="'Cormorant Garamond', Georgia, serif"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
         font-weight="500" font-size="34" fill="#FFFFFF"
         letter-spacing="-1">a</text>
   <!-- stylised S in brand gradient -->
   <text x="34" y="42"
-        font-family="'Cormorant Garamond', Georgia, serif"
+        font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
         font-weight="500" font-size="34" fill="url(#arqs-s)"
         letter-spacing="-1" filter="url(#arqs-glow)">s</text>
 </svg>
