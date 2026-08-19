@@ -48,9 +48,9 @@ select option:disabled {
   --grad-hero: linear-gradient(180deg, rgba(6,26,51,0.20) 0%, rgba(6,26,51,0.90) 100%);
 
   /* Typography */
-  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
-  --font-body:    "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-display: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:    "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Scale */
   --step--2: clamp(0.69rem, 0.66rem + 0.16vw, 0.78rem);
